@@ -5,9 +5,9 @@ import 'package:racket_match/screens/create_room.dart';
 
 import 'court.dart';
 
-enum Gender{
-  Email,
-  password,
+enum Buttons{
+  Room_ID,
+  Player_Name,
 }
 
 // Join a room
@@ -29,7 +29,7 @@ class _SelectorState extends State<Selector> {
 
   bool ispasswordev = true;
 
-  Gender? selected;
+  Buttons? selected;
 
   @override
   Widget build(BuildContext context) {
@@ -92,25 +92,57 @@ class _SelectorState extends State<Selector> {
                           height:he * 0.071,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20.0),
-                            color: selected == Gender.Email ?  enabled : backgroundColor,
+                            color: selected == Buttons.Room_ID ?  enabled : backgroundColor,
                           ),
                           padding: const EdgeInsets.all(8.0),
                           child:  TextField(
                             onTap: (){
                               setState(() {
-                                selected = Gender.Email;
+                                selected = Buttons.Room_ID;
                               });
                             },
                             decoration: InputDecoration(
                               enabledBorder: InputBorder.none,
                               border:InputBorder.none,
-                              prefixIcon: Icon(Icons.account_circle,color: enabledtxt),
+                              prefixIcon: Icon(Icons.add_box,color: enabledtxt),
                               hintText: 'Room ID',
                               hintStyle: TextStyle(
-                                color:  selected == Gender.Email ? enabledtxt : deaible,
+                                color:  selected == Buttons.Room_ID ? enabledtxt : deaible,
                               ),
                             ),
-                            style:  TextStyle(color:  selected == Gender.Email ? enabledtxt : deaible,fontWeight:FontWeight.bold),
+                            style:  TextStyle(color:  selected == Buttons.Room_ID ? enabledtxt : deaible, fontWeight:FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: he * 0.02,
+                      ),
+                      FadeAnimation(
+                        delay: 1,
+                        child: Container(
+                          width: we * 0.9,
+                          height:he * 0.071,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.0),
+                            color: selected == Buttons.Player_Name ?  enabled : backgroundColor,
+                          ),
+                          padding: const EdgeInsets.all(8.0),
+                          child:  TextField(
+                            onTap: (){
+                              setState(() {
+                                selected = Buttons.Player_Name;
+                              });
+                            },
+                            decoration: InputDecoration(
+                              enabledBorder: InputBorder.none,
+                              border:InputBorder.none,
+                              prefixIcon: Icon(Icons.account_box,color: enabledtxt),
+                              hintText: 'Player Name',
+                              hintStyle: TextStyle(
+                                color:  selected == Buttons.Player_Name ? enabledtxt : deaible,
+                              ),
+                            ),
+                            style:  TextStyle(color:  selected == Buttons.Player_Name ? enabledtxt : deaible,fontWeight:FontWeight.bold),
                           ),
                         ),
                       ),
@@ -152,7 +184,7 @@ class _SelectorState extends State<Selector> {
                             )),
                             GestureDetector(
                               onTap: (){
-                                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context){
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context){
                                   return const CreateRoom();
                                 }
                                 ));

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Racket.Match.RestApi.Models
+namespace Racket.Match.RestApi.Entities
 {
     public class Match
     {

@@ -45,7 +45,7 @@ class _CreateRoomState extends State<CreateRoom> {
                   decoration: InputDecoration(
                     enabledBorder: InputBorder.none,
                     border:InputBorder.none,
-                    prefixIcon: Icon(Icons.account_circle,color: enabledtxt),
+                    prefixIcon: Icon(Icons.add_box,color: enabledtxt),
                     hintStyle: TextStyle(
                       color:  enabledtxt
                     ),
@@ -55,6 +55,38 @@ class _CreateRoomState extends State<CreateRoom> {
                   style:  TextStyle(
                       color:  enabledtxt,
                       fontWeight:FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            FadeAnimation(
+              delay: 1,
+              child: Container(
+                width: we * 0.9,
+                height:he * 0.071,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: backgroundColor,
+                ),
+                child:  TextField(
+                  onTap: (){
+                    setState(() {
+
+                    });
+                  },
+                  decoration: InputDecoration(
+                    enabledBorder: InputBorder.none,
+                    border:InputBorder.none,
+                    prefixIcon: Icon(Icons.account_box,color: enabledtxt),
+                    hintStyle: TextStyle(
+                        color:  enabledtxt
+                    ),
+                    hintText: 'Host name',
+
+                  ),
+                  style:  TextStyle(
+                    color:  enabledtxt,
+                    fontWeight:FontWeight.bold,
                   ),
                 ),
               ),

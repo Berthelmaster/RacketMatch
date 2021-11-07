@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Racket.Match.RestApi.Dtos;
-using Racket.Match.RestApi.Models;
+using Racket.Match.RestApi.Entities;
 
 namespace Racket.Match.RestApi.Hubs
 {

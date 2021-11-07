@@ -1,4 +1,4 @@
-﻿namespace Racket.Match.RestApi.Models
+﻿namespace Racket.Match.RestApi.Entities
 {
     public class Player
     {

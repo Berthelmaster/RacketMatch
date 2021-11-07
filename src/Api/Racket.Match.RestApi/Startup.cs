@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Racket.Match.RestApi.AppDbContext;
 using Racket.Match.RestApi.Hubs;
 
 namespace Racket.Match.RestApi
@@ -32,11 +34,20 @@ namespace Racket.Match.RestApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Racket.Match.RestApi", Version = "v1"});
             });
+
+            var connectionString = "server=localhost;user=root;password=root;database=ef";
+            var serverVersion = new MySqlServerVersion(new Version(8, 0, 26));
+            
+            services.AddDbContext<DatabaseContext>(contextOptions =>
+            {
+                contextOptions.UseMySql(connectionString, serverVersion);
+            });
+            
             services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DatabaseContext context)
         {
             if (env.IsDevelopment())
             {
@@ -50,6 +61,8 @@ namespace Racket.Match.RestApi
             app.UseRouting();
 
             app.UseAuthorization();
+            
+            context.Database.Migrate();
 
             app.UseEndpoints(endpoints =>
             {
