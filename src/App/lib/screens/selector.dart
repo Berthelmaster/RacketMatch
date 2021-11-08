@@ -11,14 +11,14 @@ enum Buttons{
 }
 
 // Join a room
-class Selector extends StatefulWidget{
-  const Selector({Key? key}) : super(key: key);
+class Main extends StatefulWidget{
+  const Main({Key? key}) : super(key: key);
 
   @override
-  State<Selector> createState() => _SelectorState();
+  State<Main> createState() => _MainState();
 }
 
-class _SelectorState extends State<Selector> {
+class _MainState extends State<Main> {
   Color enabled = const Color(0xFF827F8A);
 
   Color enabledtxt = Colors.white;
@@ -111,38 +111,6 @@ class _SelectorState extends State<Selector> {
                               ),
                             ),
                             style:  TextStyle(color:  selected == Buttons.Room_ID ? enabledtxt : deaible, fontWeight:FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: he * 0.02,
-                      ),
-                      FadeAnimation(
-                        delay: 1,
-                        child: Container(
-                          width: we * 0.9,
-                          height:he * 0.071,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            color: selected == Buttons.Player_Name ?  enabled : backgroundColor,
-                          ),
-                          padding: const EdgeInsets.all(8.0),
-                          child:  TextField(
-                            onTap: (){
-                              setState(() {
-                                selected = Buttons.Player_Name;
-                              });
-                            },
-                            decoration: InputDecoration(
-                              enabledBorder: InputBorder.none,
-                              border:InputBorder.none,
-                              prefixIcon: Icon(Icons.account_box,color: enabledtxt),
-                              hintText: 'Player Name',
-                              hintStyle: TextStyle(
-                                color:  selected == Buttons.Player_Name ? enabledtxt : deaible,
-                              ),
-                            ),
-                            style:  TextStyle(color:  selected == Buttons.Player_Name ? enabledtxt : deaible,fontWeight:FontWeight.bold),
                           ),
                         ),
                       ),

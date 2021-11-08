@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:racket_match/animation/fadeanimation.dart';
 import 'package:racket_match/screens/selector.dart';
+import 'package:racket_match/view_models/create_room_view_model.dart';
 
 class CreateRoom extends StatefulWidget{
   const CreateRoom({Key? key}) : super(key: key);
@@ -19,6 +21,11 @@ class _CreateRoomState extends State<CreateRoom> {
   Widget build(BuildContext context) {
     var we = MediaQuery.of(context).size.width;
     var he = MediaQuery.of(context).size.height;
+    var roomNameFieldInput = TextEditingController();
+
+    // vm
+    var createRoomViewModel = Provider.of<CreateRoomViewModel>(context);
+
     // TODO: implement build
     return Scaffold(
       backgroundColor: const Color(0xFF1F1A30),
@@ -39,9 +46,9 @@ class _CreateRoomState extends State<CreateRoom> {
                 child:  TextField(
                   onTap: (){
                     setState(() {
-
                     });
                   },
+                  controller: roomNameFieldInput,
                   decoration: InputDecoration(
                     enabledBorder: InputBorder.none,
                     border:InputBorder.none,
@@ -61,45 +68,9 @@ class _CreateRoomState extends State<CreateRoom> {
             ),
             FadeAnimation(
               delay: 1,
-              child: Container(
-                width: we * 0.9,
-                height:he * 0.071,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  color: backgroundColor,
-                ),
-                child:  TextField(
-                  onTap: (){
-                    setState(() {
-
-                    });
-                  },
-                  decoration: InputDecoration(
-                    enabledBorder: InputBorder.none,
-                    border:InputBorder.none,
-                    prefixIcon: Icon(Icons.account_box,color: enabledtxt),
-                    hintStyle: TextStyle(
-                        color:  enabledtxt
-                    ),
-                    hintText: 'Host name',
-
-                  ),
-                  style:  TextStyle(
-                    color:  enabledtxt,
-                    fontWeight:FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-            FadeAnimation(
-              delay: 1,
               child: TextButton(
                   onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) {
-                          return const Selector();
-                        }
-                        ));
+                    createRoomViewModel.createRoom(roomNameFieldInput.text);
                   },
                   child: Text("Create room",style: GoogleFonts.heebo(
                     color: Colors.black,
