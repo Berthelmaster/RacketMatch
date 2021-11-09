@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:racket_match/animation/fadeanimation.dart';
 import 'package:racket_match/screens/create_room.dart';
+import 'package:racket_match/view_models/room_selection_view_model.dart';
 
 import 'court.dart';
 
@@ -35,6 +37,10 @@ class _MainState extends State<Main> {
   Widget build(BuildContext context) {
     var we = MediaQuery.of(context).size.width;
     var he = MediaQuery.of(context).size.height;
+
+    var selectorViewModel = Provider.of<RoomSelectionViewModel>(context);
+    var roomNameFieldInput = '';
+
     return Scaffold(
         backgroundColor: const Color(0xFF1F1A30),
         body: SingleChildScrollView(
@@ -98,8 +104,10 @@ class _MainState extends State<Main> {
                           child:  TextField(
                             onTap: (){
                               setState(() {
-                                selected = Buttons.Room_ID;
                               });
+                            },
+                            onChanged: (text){
+                              roomNameFieldInput = text;
                             },
                             decoration: InputDecoration(
                               enabledBorder: InputBorder.none,
@@ -120,7 +128,9 @@ class _MainState extends State<Main> {
                       FadeAnimation(
                         delay: 1,
                         child: TextButton(
-                            onPressed: (){},
+                            onPressed: (){
+                              selectorViewModel.selectRoomByRoomID(roomNameFieldInput);
+                            },
                             child: Text("Enter",style: GoogleFonts.heebo(
                               color: Colors.black,
                               letterSpacing: 0.5,

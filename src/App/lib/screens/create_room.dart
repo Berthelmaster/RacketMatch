@@ -44,10 +44,6 @@ class _CreateRoomState extends State<CreateRoom> {
                   color: backgroundColor,
                 ),
                 child:  TextField(
-                  onTap: (){
-                    setState(() {
-                    });
-                  },
                   controller: roomNameFieldInput,
                   decoration: InputDecoration(
                     enabledBorder: InputBorder.none,
@@ -87,6 +83,19 @@ class _CreateRoomState extends State<CreateRoom> {
                   )
               ),
             ),
+            SizedBox(
+              height: he * 0.02,
+            ),
+            if (createRoomViewModel.errorHasOccurred)
+               FadeAnimation(
+                 delay: 1,
+                 child: Text(createRoomViewModel.errorMessage, style: GoogleFonts.heebo(
+                  color: Colors.red,
+                  letterSpacing: 0.5,
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold,
+                )),
+              )
           ],
         ),
       ),

@@ -1,1 +1,1 @@
-const String HttpBaseEndpoint = 'api.racketmatch.com/';
+const String HttpBaseEndpoint = 'http://10.0.2.2:5000';

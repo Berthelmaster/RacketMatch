@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Racket.Match.RestApi.AppDbContext;
+using Racket.Match.RestApi.Extensions;
 using Racket.Match.RestApi.Hubs;
 
 namespace Racket.Match.RestApi
@@ -34,9 +35,10 @@ namespace Racket.Match.RestApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Racket.Match.RestApi", Version = "v1"});
             });
+            services.AddObjectLifetime();
 
             var connectionString = "server=localhost;user=root;password=root;database=ef";
-            var serverVersion = new MySqlServerVersion(new Version(8, 0, 26));
+            var serverVersion = new MySqlServerVersion(new Version(8, 0, 27));
             
             services.AddDbContext<DatabaseContext>(contextOptions =>
             {
@@ -55,8 +57,10 @@ namespace Racket.Match.RestApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Racket.Match.RestApi v1"));
             }
-
-            app.UseHttpsRedirection();
+            else
+            {
+                app.UseHttpsRedirection();   
+            }
 
             app.UseRouting();
 

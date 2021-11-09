@@ -4,6 +4,7 @@ import 'package:racket_match/screens/court.dart';
 import 'package:racket_match/screens/create_room.dart';
 import 'package:racket_match/screens/selector.dart';
 import 'package:racket_match/view_models/create_room_view_model.dart';
+import 'package:racket_match/view_models/room_selection_view_model.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,6 +18,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(providers: [
       ChangeNotifierProvider(
         create: (_) => CreateRoomViewModel(),
+      ),
+      ChangeNotifierProvider(
+          create: (_) => RoomSelectionViewModel(),
       )
     ],
     child: MaterialApp(
@@ -30,11 +34,11 @@ class MyApp extends StatelessWidget {
         */
 
         // Find or Create Room
-        '/': (context) => Main(),
+        '/': (context) => const Main(),
         // Shows the room and valid courts
-        '/court': (context) => Court(),
+        '/court': (context) => const Court(),
         // Create a room
-        '/create': (context) => CreateRoom()
+        '/create': (context) => const CreateRoom()
       },
     ));
   }
