@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:racket_match/screens/court.dart';
+import 'package:racket_match/screens/room_instance.dart';
 import 'package:racket_match/screens/create_room.dart';
 import 'package:racket_match/screens/selector.dart';
 import 'package:racket_match/view_models/create_room_view_model.dart';
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         // Find or Create Room
         '/': (context) => const Main(),
         // Shows the room and valid courts
-        '/court': (context) => const Court(),
+        '/room': (context) => RoomInstance.optional(),
         // Create a room
         '/create': (context) => const CreateRoom()
       },

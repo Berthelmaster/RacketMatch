@@ -57,5 +57,17 @@ namespace Racket.Match.RestApi.Controllers
             var newRoom = await _context.Rooms.Where(x => x.RoomName == roomName).FirstOrDefaultAsync();
             return Ok(newRoom);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetRoom([FromQuery] int uniqueId)
+        {
+            var findExistingRoomByIdentifier =
+                await _context.Rooms.Where(x => x.UniqueRoomIdentifier == uniqueId).FirstOrDefaultAsync();
+
+            if (findExistingRoomByIdentifier == null)
+                return BadRequest();
+
+            return Ok(findExistingRoomByIdentifier);
+        }
     }
 }

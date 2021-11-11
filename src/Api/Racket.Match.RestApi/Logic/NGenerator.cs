@@ -7,7 +7,7 @@ namespace Racket.Match.RestApi.Logic
         private static readonly Random Random = new Random();
         public static int GenerateUniqueIdentifier()
         {
-            return Random.Next(100000000, 999999999);
+            return Random.Next(10000, 99999);
         }
     }
 }

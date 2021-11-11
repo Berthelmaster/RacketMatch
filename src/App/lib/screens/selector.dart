@@ -5,7 +5,7 @@ import 'package:racket_match/animation/fadeanimation.dart';
 import 'package:racket_match/screens/create_room.dart';
 import 'package:racket_match/view_models/room_selection_view_model.dart';
 
-import 'court.dart';
+import 'room_instance.dart';
 
 enum Buttons{
   Room_ID,

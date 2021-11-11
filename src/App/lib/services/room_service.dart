@@ -11,7 +11,12 @@ class RoomService{
 
     var response = await http.post(url, headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
-    });
+    })
+    .timeout(
+        const Duration(seconds: 5),
+        onTimeout: () {
+          throw Exception('Failed to communicate with server');
+        });
 
     if(response.statusCode == 200) {
       return response;
