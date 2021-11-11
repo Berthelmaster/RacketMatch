@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:racket_match/models/room.dart';
 import 'package:racket_match/services/room_service.dart';
 
 class CreateRoomViewModel extends ChangeNotifier{
@@ -33,18 +36,19 @@ class CreateRoomViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
-  createRoom(String roomName) async{
+  Future<Room> createRoom(String roomName) async{
     if(_errorHasOccurred){
       clearErrorMessage();
     }
 
     try{
       var createRoom = await RoomService.createRoom(roomName);
+      return Room.fromJson(jsonDecode(createRoom.body));
     }
     catch(e) {
       setErrorMessage(e.toString());
     }
 
-    print('OK');
+    throw Exception('Create Room Exception');
   }
 }

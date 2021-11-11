@@ -1,1 +1,3 @@
-const String HttpBaseEndpoint = 'http://10.0.2.2:5000';
+import 'package:flutter/foundation.dart';
+
+const String httpBaseEndpoint = kReleaseMode ? 'api.mysite.com' : 'http://10.0.2.2:5000';

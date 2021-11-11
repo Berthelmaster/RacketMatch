@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:racket_match/animation/fadeanimation.dart';
+import 'package:racket_match/models/room.dart';
 import 'package:racket_match/screens/selector.dart';
 import 'package:racket_match/view_models/create_room_view_model.dart';
 
@@ -66,7 +67,14 @@ class _CreateRoomState extends State<CreateRoom> {
               delay: 1,
               child: TextButton(
                   onPressed: () {
-                    createRoomViewModel.createRoom(roomNameFieldInput.text);
+                    createRoomViewModel
+                        .createRoom(roomNameFieldInput.text)
+                        .then((object) => {
+                          if (object is Room){
+                            print(object.id),
+                            print(object.roomName)
+                          }
+                    });
                   },
                   child: Text("Create room",style: GoogleFonts.heebo(
                     color: Colors.black,

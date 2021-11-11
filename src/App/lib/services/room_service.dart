@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 class RoomService{
 
   static Future<http.Response> createRoom(String roomName) async {
-    var url = Uri.parse("$HttpBaseEndpoint/room?roomName=$roomName");
+    var url = Uri.parse("$httpBaseEndpoint/room?roomName=$roomName");
 
     print(url);
 
@@ -21,7 +21,7 @@ class RoomService{
   }
 
   static Future<http.Response> getRoomFromIdentifier(String roomId) async {
-    var url = Uri.parse("$HttpBaseEndpoint/room?roomId=$roomId");
+    var url = Uri.parse("$httpBaseEndpoint/room?roomId=$roomId");
 
     var response = await http.get(url);
 
