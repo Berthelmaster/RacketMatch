@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Racket.Match.RestApi.AppDbContext;
 using Racket.Match.RestApi.Entities;
 using Racket.Match.RestApi.Interfaces;
+using Racket.Match.RestApi.Logic;
 
 namespace Racket.Match.RestApi.Controllers
 {
@@ -32,10 +33,19 @@ namespace Racket.Match.RestApi.Controllers
             if (findExistingRoomWithIdenticalName != null)
                 return Conflict();
 
+            int randomNumber;
+            bool isAny;
+            do
+            {
+                randomNumber = NGenerator.GenerateUniqueIdentifier();
+                isAny = await _context.Rooms.Where(x => x.UniqueRoomIdentifier == randomNumber).AnyAsync();
+            } while (isAny);
+            
             var createdRoom = new Room()
             {
                 RoomName = roomName,
-                Matches = null
+                Matches = null,
+                UniqueRoomIdentifier = randomNumber,
             };
 
             await _context.Rooms.AddAsync(createdRoom);

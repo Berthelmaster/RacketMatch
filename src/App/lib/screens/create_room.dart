@@ -72,7 +72,8 @@ class _CreateRoomState extends State<CreateRoom> {
                         .then((object) => {
                           if (object is Room){
                             print(object.id),
-                            print(object.roomName)
+                            print(object.roomName),
+                            print(object.uniqueRoomIdentifier)fewqfqeff
                           }
                     });
                   },

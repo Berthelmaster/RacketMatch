@@ -6,6 +6,7 @@ namespace Racket.Match.RestApi.Entities
     {
         public int Id { get; set; }
         public string RoomName { get; set; }
+        public int UniqueRoomIdentifier { get; set; }
         public List<Match> Matches { get; set; }
     }
 }
