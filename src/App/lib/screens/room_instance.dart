@@ -23,13 +23,17 @@ class _RoomInstanceState extends State<RoomInstance> {
     var we = MediaQuery.of(context).size.width;
     var he = MediaQuery.of(context).size.height;
 
-    Player player1 = Player(1, 'PLayer_1', Team.Team1);
-    Player player2 = Player(2, 'PLayer_2', Team.Team1);
-    Player player3 = Player(3, 'PLayer_3', Team.Team2);
-    Player player4 = Player(4, 'PLayer_4', Team.Team2);
+    Player player1 = Player(id: 1, name: 'PLayer_1', team: Team.team1);
+    Player player2 = Player(id: 2, name: 'PLayer_2', team: Team.team1);
+    Player player3 = Player(id: 3, name: 'PLayer_3', team: Team.team2);
+    Player player4 = Player(id: 4, name: 'PLayer_4', team: Team.team2);
+    Player player5 = Player(id: 5, name: 'PLayer_5', team: Team.team1);
+    Player player6 = Player(id: 6, name: 'PLayer_6', team: Team.team2);
 
     var team1 = [player1, player2];
     var team2 = [player3, player4];
+    var team3 = [player5];
+    var team4 = [player6];
 
     // title: Text(widget.room.roomName),
     return Scaffold(
@@ -64,8 +68,8 @@ class _RoomInstanceState extends State<RoomInstance> {
                       width: we * 0.01,
                     ),
                     MatchGraphic(
-                      teamOne: team1,
-                      teamTwo: team2,
+                      teamOne: team3,
+                      teamTwo: team4,
                     )
                   ],
                 ),
