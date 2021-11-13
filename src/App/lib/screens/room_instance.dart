@@ -27,7 +27,7 @@ class _RoomInstanceState extends State<RoomInstance> {
     var we = MediaQuery.of(context).size.width;
     var he = MediaQuery.of(context).size.height;
 
-    Player player1 = Player(id: 1, name: 'PLayer_1', team: Team.team1);
+    Player player1 = Player(id: 1, name: 'Jens Stage Stage', team: Team.team1);
     Player player2 = Player(id: 2, name: 'PLayer_2', team: Team.team1);
     Player player3 = Player(id: 3, name: 'PLayer_3', team: Team.team2);
     Player player4 = Player(id: 4, name: 'PLayer_4', team: Team.team2);

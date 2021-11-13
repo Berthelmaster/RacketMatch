@@ -39,7 +39,7 @@ class MatchGraphic extends StatelessWidget{
                   Row(
                     children: [
                       Container(
-                        color: Color(0x70000000),
+                        //color: Color(0x70000000),
                         alignment: Alignment.center,
                         width: (we*0.45) / 2,
                         height: he * 0.225,
@@ -49,7 +49,7 @@ class MatchGraphic extends StatelessWidget{
                       ),
                       // Player 2
                       Container(
-                        color: Color(0x70000000),
+                        //color: Color(0x70000000),
                         alignment: Alignment.center,
                         width: (we*0.45) / 2,
                         height: he * 0.225,
@@ -65,7 +65,7 @@ class MatchGraphic extends StatelessWidget{
 
                     children: [
                       Container(
-                        color: Color(0x70000000),
+                        //color: Color(0x70000000),
                         alignment: Alignment.center,
                         width: (we*0.45) / 2,
                         height: he * 0.25,
@@ -76,7 +76,7 @@ class MatchGraphic extends StatelessWidget{
                       ),
                       // Player 4
                       Container(
-                        color: Color(0x70000000),
+                        //color: Color(0x70000000),
                         alignment: Alignment.center,
                         width: (we*0.45) / 2,
                         height: he * 0.25,
@@ -113,7 +113,7 @@ class MatchGraphic extends StatelessWidget{
                 Column(
                   children: [
                     Container(
-                      color: Color(0x70000000),
+                      //color: Color(0x70000000),
                       alignment: Alignment.center,
                       width: (we*0.45) / 2,
                       height: he * 0.225,
@@ -124,7 +124,7 @@ class MatchGraphic extends StatelessWidget{
                     ),
                     // Player 3
                     Container(
-                      color: Color(0x70000000),
+                      //color: Color(0x70000000),
                       alignment: Alignment.center,
                       width: (we*0.45) / 2,
                       height: he * 0.25,
