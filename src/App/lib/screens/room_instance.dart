@@ -5,6 +5,7 @@ import 'package:racket_match/Widgets/match_graphic.dart';
 import 'package:racket_match/models/match.dart';
 import 'package:racket_match/models/player.dart';
 import 'package:racket_match/models/room.dart';
+import 'package:racket_match/services/hub_clients/on_connection_join.dart';
 import 'package:racket_match/view_models/room_instance_view_model.dart';
 import 'package:racket_match/widgets/match_graphic_list.dart';
 
@@ -22,6 +23,8 @@ class RoomInstance extends StatefulWidget{
 
 class _RoomInstanceState extends State<RoomInstance> {
 
+  var hubConnection = OnConnectionJoin().initialize();
+
   @override
   Widget build(BuildContext context) {
     var we = MediaQuery.of(context).size.width;
@@ -34,19 +37,8 @@ class _RoomInstanceState extends State<RoomInstance> {
     Player player5 = Player(id: 5, name: 'PLayer_5', team: Team.team1);
     Player player6 = Player(id: 6, name: 'PLayer_6', team: Team.team2);
 
-
-    var team1 = [player1, player2];
-    var team2 = [player3, player4];
-    var team3 = [player5];
-    var team4 = [player6];
-
     Match match1 = Match(id: 1, players: [player1, player2, player3, player4]);
     Match match2 = Match(id: 2, players: [player5, player6]);
-    Match match3 = Match(id: 3, players: [player5, player6]);
-    Match match4 = Match(id: 4, players: [player5, player6]);
-    Match match5 = Match(id: 5, players: [player5, player6]);
-    Match match6 = Match(id: 6, players: [player5, player6]);
-    Match match7 = Match(id: 7, players: [player5, player6]);
     var matches = [match1, match2];
 
     var roomInstanceViewModel = Provider.of<RoomInstanceViewModel>(context);

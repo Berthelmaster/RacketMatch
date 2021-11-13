@@ -40,6 +40,7 @@ dependencies:
   google_fonts: ^2.1.0
   cached_network_image: ^3.1.0
   http: ^0.13.4
+  signalr_netcore: ^1.2.3+1
 
 dev_dependencies:
   flutter_test:
