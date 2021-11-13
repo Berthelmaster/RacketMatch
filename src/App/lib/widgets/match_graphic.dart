@@ -21,11 +21,11 @@ class MatchGraphic extends StatelessWidget{
       children: <Widget>
       [
         Container(
-          alignment: Alignment.center,
           child: Image(
             image: const AssetImage('lib/assets/images/istockphoto-829923188-612x612.jpg'),
             width: we*0.45,
-            height: he*0.45,
+            height: he*0.50,
+            fit: BoxFit.fill,
           ),
         ),
           isDoubles == true ?
@@ -68,7 +68,7 @@ class MatchGraphic extends StatelessWidget{
                         color: Color(0x70000000),
                         alignment: Alignment.center,
                         width: (we*0.45) / 2,
-                        height: he * 0.225,
+                        height: he * 0.25,
                         //margin: EdgeInsets.only(top: he * 0.25),
                         child: Text(teamTwo[0].name,
                           textAlign: TextAlign.center,
@@ -79,7 +79,7 @@ class MatchGraphic extends StatelessWidget{
                         color: Color(0x70000000),
                         alignment: Alignment.center,
                         width: (we*0.45) / 2,
-                        height: he * 0.225,
+                        height: he * 0.25,
                         //margin: EdgeInsets.only(top: he * 0.25, left: (we*0.45) / 2),
                         child: Text(teamTwo[1].name,
                           textAlign: TextAlign.center,
@@ -93,7 +93,7 @@ class MatchGraphic extends StatelessWidget{
 
                 alignment: Alignment.center,
                 width: (we*0.45) / 2,
-                height: he * 0.25,
+                height: he * 0.225,
                 margin: EdgeInsets.only(top: he * 0.125, left: (we*0.225) / 2),
                 child: Text('VS',
                     textAlign: TextAlign.center,
@@ -127,7 +127,7 @@ class MatchGraphic extends StatelessWidget{
                       color: Color(0x70000000),
                       alignment: Alignment.center,
                       width: (we*0.45) / 2,
-                      height: he * 0.225,
+                      height: he * 0.25,
                       margin: EdgeInsets.only(left: (we*0.225) / 2),
                       child: Text(teamTwo[0].name,
                         textAlign: TextAlign.center,
@@ -138,7 +138,7 @@ class MatchGraphic extends StatelessWidget{
                 Container(
                   alignment: Alignment.center,
                   width: (we*0.45) / 2,
-                  height: he * 0.25,
+                  height: he * 0.225,
                   margin: EdgeInsets.only(top: he * 0.125, left: (we*0.225) / 2),
                   child: Text('VS',
                       textAlign: TextAlign.center,

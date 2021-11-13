@@ -4,6 +4,7 @@ import 'package:racket_match/screens/room_instance.dart';
 import 'package:racket_match/screens/create_room.dart';
 import 'package:racket_match/screens/selector.dart';
 import 'package:racket_match/view_models/create_room_view_model.dart';
+import 'package:racket_match/view_models/room_instance_view_model.dart';
 import 'package:racket_match/view_models/room_selection_view_model.dart';
 
 void main() {
@@ -21,7 +22,9 @@ class MyApp extends StatelessWidget {
       ),
       ChangeNotifierProvider(
           create: (_) => RoomSelectionViewModel(),
-      )
+      ),
+      ChangeNotifierProvider(
+          create: (_) => RoomInstanceViewModel())
     ],
     child: MaterialApp(
       theme: ThemeData(
