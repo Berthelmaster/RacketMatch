@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:racket_match/screens/room_instance.dart';
 import 'package:racket_match/screens/create_room.dart';
 import 'package:racket_match/screens/selector.dart';
@@ -17,18 +16,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [
-      ChangeNotifierProvider(
-        create: (_) => CreateRoomViewModel(),
-      ),
-      ChangeNotifierProvider(
-          create: (_) => RoomSelectionViewModel(),
-      ),
-      ChangeNotifierProvider(
-          create: (context) => RoomInstanceViewModel(),
-      )
-    ],
-    child: MaterialApp(
+    return MaterialApp(
       theme: ThemeData(
           primarySwatch: Colors.blue
       ),
@@ -38,12 +26,12 @@ class MyApp extends StatelessWidget {
           List of routes and what they do
         */
         // Find or Create Room
-        '/': (context) => const Main(),
+        '/': (context) => MainView(),
         // Shows the room and valid courts
         '/room': (context) => RoomInstance(),
         // Create a room
-        '/create': (context) => const CreateRoom()
+        '/create': (context) => CreateRoom()
       },
-    ));
+    );
   }
 }
