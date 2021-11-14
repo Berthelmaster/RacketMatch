@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
           create: (_) => RoomSelectionViewModel(),
       ),
       ChangeNotifierProvider(
-          create: (context) => RoomInstanceViewModel()
+          create: (context) => RoomInstanceViewModel(),
       )
     ],
     child: MaterialApp(

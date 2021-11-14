@@ -12,7 +12,12 @@ class RoomInstanceViewModel with ChangeNotifier {
   List<Match> _matches = [];
   var _onConnectionJoinHub;
 
-  RoomInstanceViewModel();
+  RoomInstanceViewModel(){
+    print('CAAALEED');
+    _loading = false;
+    _roomId = null;
+    _matches = [];
+  }
 
 
   bool get isLoading => _loading;
@@ -51,5 +56,13 @@ class RoomInstanceViewModel with ChangeNotifier {
 
     throw Exception("Could not find room");
   }
+
+  void clearViewModel(){
+    _loading = false;
+    _roomId = null;
+    _matches = [];
+  }
+
+
 
 }

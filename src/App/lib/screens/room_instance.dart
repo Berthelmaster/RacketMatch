@@ -21,8 +21,17 @@ class RoomInstance extends StatefulWidget{
   State<RoomInstance> createState() => _RoomInstanceState();
 }
 
-class _RoomInstanceState extends State<RoomInstance>{
+class _RoomInstanceState extends State<RoomInstance> with WidgetsBindingObserver{
   bool hubActive = false;
+  late RoomInstanceViewModel roomInstanceViewModel;
+
+  @override
+  void dispose() {
+    print('Disposed');
+    // This should really be fixed!?
+    roomInstanceViewModel.clearViewModel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +49,7 @@ class _RoomInstanceState extends State<RoomInstance>{
     Match match2 = Match(id: 2, players: [player5, player6]);
     var matches = [match1, match2];
 
-    var roomInstanceViewModel = Provider.of<RoomInstanceViewModel>(context);
+    roomInstanceViewModel = Provider.of<RoomInstanceViewModel>(context);
     if(!hubActive) {
       hubActive = true;
       roomInstanceViewModel.setupHubConnection(widget.room.uniqueRoomIdentifier.toString());
