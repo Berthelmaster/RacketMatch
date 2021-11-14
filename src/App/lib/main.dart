@@ -24,7 +24,8 @@ class MyApp extends StatelessWidget {
           create: (_) => RoomSelectionViewModel(),
       ),
       ChangeNotifierProvider(
-          create: (_) => RoomInstanceViewModel())
+          create: (context) => RoomInstanceViewModel()
+      )
     ],
     child: MaterialApp(
       theme: ThemeData(
@@ -35,7 +36,6 @@ class MyApp extends StatelessWidget {
         /*
           List of routes and what they do
         */
-
         // Find or Create Room
         '/': (context) => const Main(),
         // Shows the room and valid courts

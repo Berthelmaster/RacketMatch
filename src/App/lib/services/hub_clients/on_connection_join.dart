@@ -4,20 +4,35 @@ import '../../constants.dart';
 
 class OnConnectionJoin {
   HubConnection? _hubConnection;
+  String? _groupName;
+  Function(List<Object>?)? _onMemberChangedCallback;
 
-  OnConnectionJoin(){
+  OnConnectionJoin(String groupName, Function(List<Object>?) onMemberChangedCallback){
+    _groupName = groupName;
+    _onMemberChangedCallback = onMemberChangedCallback;
     _hubConnection ??= HubConnectionBuilder()
         .withUrl("$httpBaseEndpoint/roomhub")
         .build();
-    print('HubConnection build!');
+    print('HubConnection build with groupName $groupName');
   }
 
 
-  void initialize() async{
+  Future<OnConnectionJoin> initialize() async{
     _hubConnection!.onclose( ({error}) async => print("Connection Closed"));
+    _hubConnection!.on("MemberChanged", (arguments) => memberChanged(arguments));
     await _hubConnection!.start();
-    print(_hubConnection!.connectionId.toString());
+    
+    final AddMemberToGroup = await _hubConnection!.invoke("AddToGroup", args: <Object>[_groupName as Object]);
+
+    return this;
   }
+
+  void memberChanged(List<Object>? object) async{
+    await _onMemberChangedCallback!(object);
+  }
+
+
+
 
 
 }

@@ -21,9 +21,8 @@ class RoomInstance extends StatefulWidget{
   State<RoomInstance> createState() => _RoomInstanceState();
 }
 
-class _RoomInstanceState extends State<RoomInstance> {
-
-  var hubConnection = OnConnectionJoin().initialize();
+class _RoomInstanceState extends State<RoomInstance>{
+  bool hubActive = false;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +41,11 @@ class _RoomInstanceState extends State<RoomInstance> {
     var matches = [match1, match2];
 
     var roomInstanceViewModel = Provider.of<RoomInstanceViewModel>(context);
+    if(!hubActive) {
+      hubActive = true;
+      roomInstanceViewModel.setupHubConnection(widget.room.uniqueRoomIdentifier.toString());
+    }
+
     // title: Text(widget.room.roomName),
     return Scaffold(
       backgroundColor: const Color(0xFF1F1A30),
@@ -67,7 +71,6 @@ class _RoomInstanceState extends State<RoomInstance> {
               },
               child: const Text('123'),
             )
-
           ],
         ),
       )

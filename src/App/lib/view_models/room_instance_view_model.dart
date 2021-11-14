@@ -1,14 +1,22 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:racket_match/services/hub_clients/on_connection_join.dart';
 import 'package:racket_match/services/room_service.dart';
 import 'package:racket_match/models/match.dart';
 
 class RoomInstanceViewModel with ChangeNotifier {
+
   bool _loading = false;
+  String? _roomId;
+  List<Match> _matches = [];
+  var _onConnectionJoinHub;
+
+  RoomInstanceViewModel();
 
 
-  var _matches = <Match>[];
+  bool get isLoading => _loading;
+  List<Match> get matches => _matches;
 
   void updateMatch(Match match){
     _matches.add(match);
@@ -16,11 +24,22 @@ class RoomInstanceViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  List<Match> get matches => _matches;
+  void setupHubConnection(String roomId) async {
+    print("Matches: ${_matches.length}");
+    print("Loading?: $_loading");
+    _loading = true;
+    _onConnectionJoinHub = await OnConnectionJoin(roomId, onNewConnection).initialize();
+    notifyListeners();
+  }
+
+  void onNewConnection(List<Object>? object){
+    var aa = object.toString();
+    print('New Connection!! $aa');
+  }
+
 
   void switchLoading() => _loading = !_loading;
 
-  bool get isLoading => _loading;
 
   Future<String> selectRoomByRoomID(String roomID) async {
     print(roomID);
