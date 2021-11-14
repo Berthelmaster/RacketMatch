@@ -25,10 +25,17 @@ class RoomService{
     throw Exception('Room "$roomName" already exists');
   }
 
-  static Future<http.Response> getRoomFromIdentifier(String roomId) async {
-    var url = Uri.parse("$httpBaseEndpoint/room?roomId=$roomId");
+  static Future<http.Response> getRoomFromIdentifier(int uniqueIdentifier) async {
+    var url = Uri.parse("$httpBaseEndpoint/room?uniqueIdentifier=$uniqueIdentifier");
 
-    var response = await http.get(url);
+    var response = await http.get(url, headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    })
+        .timeout(
+        const Duration(seconds: 5),
+        onTimeout: () {
+          throw Exception('Failed to communicate with server');
+        });
 
     if(response.statusCode == 200) {
       return response;

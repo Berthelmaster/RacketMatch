@@ -31,6 +31,10 @@ class OnConnectionJoin {
     await _onMemberChangedCallback!(object);
   }
 
+  Future<void> dispose() async {
+    await _hubConnection!.stop();
+  }
+
 
 
 

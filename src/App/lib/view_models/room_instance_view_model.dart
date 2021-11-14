@@ -29,7 +29,7 @@ class RoomInstanceViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void setupHubConnection(String roomId) async {
+  Future<void> setupHubConnection(String roomId) async {
     print("Matches: ${_matches.length}");
     print("Loading?: $_loading");
     _loading = true;
@@ -37,15 +37,29 @@ class RoomInstanceViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> disposeHubConnection() async {
+    _onConnectionJoinHub.dispose();
+  }
+
   void onNewConnection(List<Object>? object){
-    var aa = object.toString();
-    print('New Connection!! $aa');
+    var response = object![0].toString();
+
+    Fluttertoast.showToast(
+        msg: response,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.blueAccent,
+        textColor: Colors.white,
+        fontSize: 10.0
+    );
   }
 
 
   void switchLoading() => _loading = !_loading;
 
 
+  /*
   Future<String> selectRoomByRoomID(String roomID) async {
     print(roomID);
     var request = await RoomService.getRoomFromIdentifier(roomID);
@@ -56,6 +70,7 @@ class RoomInstanceViewModel with ChangeNotifier {
 
     throw Exception("Could not find room");
   }
+   */
 
   void clearViewModel(){
     _loading = false;

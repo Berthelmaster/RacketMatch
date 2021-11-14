@@ -17,7 +17,7 @@ class RoomInstance extends StatelessWidget{
   late Room? room;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     var we = MediaQuery.of(context).size.width;
     var he = MediaQuery.of(context).size.height;
 
@@ -25,17 +25,14 @@ class RoomInstance extends StatelessWidget{
     Player player2 = Player(id: 2, name: 'PLayer_2', team: Team.team1);
     Player player3 = Player(id: 3, name: 'PLayer_3', team: Team.team2);
     Player player4 = Player(id: 4, name: 'PLayer_4', team: Team.team2);
-    Player player5 = Player(id: 5, name: 'PLayer_5', team: Team.team1);
-    Player player6 = Player(id: 6, name: 'PLayer_6', team: Team.team2);
 
     Match match1 = Match(id: 1, players: [player1, player2, player3, player4]);
-    Match match2 = Match(id: 2, players: [player5, player6]);
-    var matches = [match1, match2];
 
 
     return ViewModelBuilder<RoomInstanceViewModel>.reactive(
         viewModelBuilder: () => RoomInstanceViewModel(),
-        onModelReady: (model) => model.setupHubConnection(room!.uniqueRoomIdentifier.toString()),
+        onModelReady: (model) async => await model.setupHubConnection(room!.uniqueRoomIdentifier.toString()),
+        onDispose: (model) async => await model.disposeHubConnection(),
         builder: (context, model, child) =>
             Scaffold(
                 backgroundColor: const Color(0xFF1F1A30),

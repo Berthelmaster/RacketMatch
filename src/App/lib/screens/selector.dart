@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:racket_match/animation/fadeanimation.dart';
+import 'package:racket_match/models/room.dart';
 import 'package:racket_match/screens/create_room.dart';
 import 'package:racket_match/view_models/room_selection_view_model.dart';
 import 'package:stacked/stacked.dart';
@@ -29,11 +31,12 @@ class MainView extends StatelessWidget{
 
   Buttons? selected;
 
+  final myController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     var we = MediaQuery.of(context).size.width;
     var he = MediaQuery.of(context).size.height;
-    var roomNameFieldInput = '';
 
     return ViewModelBuilder<RoomSelectionViewModel>.reactive(
         viewModelBuilder: () => RoomSelectionViewModel(),
@@ -100,9 +103,9 @@ class MainView extends StatelessWidget{
                               child:  TextField(
                                 onTap: (){
                                 },
-                                onChanged: (text){
-                                  roomNameFieldInput = text;
-                                },
+                                controller: myController,
+                                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                                keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   enabledBorder: InputBorder.none,
                                   border:InputBorder.none,
@@ -122,8 +125,15 @@ class MainView extends StatelessWidget{
                           FadeAnimation(
                             delay: 1,
                             child: TextButton(
-                                onPressed: (){
-                                  model.selectRoomByRoomID(roomNameFieldInput);
+                                onPressed: () async {
+                                  print(myController.text);
+                                  print('ok');
+                                  var result = await model.selectRoomByRoomID(int.parse(myController.text));
+                                  if(result is Room){
+                                    Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                                      return RoomInstance(room: result);
+                                    }));
+                                  }
                                 },
                                 child: Text("Enter",style: GoogleFonts.heebo(
                                   color: Colors.black,

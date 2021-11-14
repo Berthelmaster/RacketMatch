@@ -13,14 +13,14 @@ namespace Racket.Match.RestApi.Hubs
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
 
-            await Clients.Group(groupName).SendAsync("MemberChanged", $"{Context.ConnectionId} has joined the group {groupName}.");
+            await Clients.OthersInGroup(groupName).SendAsync("MemberChanged", $"A player has joined the room");
         }
         
         public async Task RemoveFromGroup(string groupName)
         {
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
 
-            await Clients.Group(groupName).SendAsync("MemberChanged", $"{Context.ConnectionId} has left the group {groupName}.");
+            await Clients.Group(groupName).SendAsync("MemberChanged", $"{Context.ConnectionId} has left the room");
         }
 
         public async Task AddPlayersToMatch(string groupName, List<Player> players)
