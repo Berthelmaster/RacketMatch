@@ -12,9 +12,9 @@ import 'package:racket_match/widgets/match_graphic_list.dart';
 //ignore: must_be_immutable
 class RoomInstance extends StatefulWidget{
   RoomInstance.optional({Key? key}) : super(key: key);
-  RoomInstance({Key? key, required this.room}) : super(key: key);
+  RoomInstance({Key? key,  this.room}) : super(key: key);
 
-  late Room room;
+  late Room? room;
 
 
   @override
@@ -29,7 +29,7 @@ class _RoomInstanceState extends State<RoomInstance> with WidgetsBindingObserver
   void dispose() {
     print('Disposed');
     // This should really be fixed!?
-    roomInstanceViewModel.clearViewModel();
+    //roomInstanceViewModel.clearViewModel();
     super.dispose();
   }
 
@@ -52,7 +52,7 @@ class _RoomInstanceState extends State<RoomInstance> with WidgetsBindingObserver
     roomInstanceViewModel = Provider.of<RoomInstanceViewModel>(context);
     if(!hubActive) {
       hubActive = true;
-      roomInstanceViewModel.setupHubConnection(widget.room.uniqueRoomIdentifier.toString());
+      roomInstanceViewModel.setupHubConnection(widget.room!.uniqueRoomIdentifier.toString());
     }
 
     // title: Text(widget.room.roomName),
@@ -67,7 +67,7 @@ class _RoomInstanceState extends State<RoomInstance> with WidgetsBindingObserver
               height: he * 0.04,
             ),
             Center(
-              child: Text('Room ID: ${widget.room.uniqueRoomIdentifier.toString()}',
+              child: Text('Room ID: ${widget.room!.uniqueRoomIdentifier.toString()}',
                 style: GoogleFonts.heebo(
                   color:  const Color(0xFF9746A0).withOpacity(0.9),
                   fontWeight: FontWeight.bold,

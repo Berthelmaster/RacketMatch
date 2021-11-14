@@ -7,8 +7,9 @@ import 'package:racket_match/view_models/create_room_view_model.dart';
 import 'package:racket_match/view_models/room_instance_view_model.dart';
 import 'package:racket_match/view_models/room_selection_view_model.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
         // Find or Create Room
         '/': (context) => const Main(),
         // Shows the room and valid courts
-        '/room': (context) => RoomInstance.optional(),
+        '/room': (context) => RoomInstance(),
         // Create a room
         '/create': (context) => const CreateRoom()
       },
