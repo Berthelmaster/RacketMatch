@@ -8,7 +8,7 @@ import '../../constants.dart';
 abstract class BaseHubConnection{
   @protected
   HubConnection? hubConnection;
-  bool isSetup = false;
+  bool _isSetup = false;
 
   BaseHubConnection(String groupName) {
     hubConnection ??= HubConnectionBuilder()
@@ -17,7 +17,7 @@ abstract class BaseHubConnection{
   }
 
   Future<void> dispose() async {
-    isSetup = false;
+    _isSetup = false;
     await hubConnection!.stop();
   }
 
@@ -34,10 +34,10 @@ abstract class BaseHubConnection{
   }
 
   Future<void> setupBaseConnection() async{
-    if(isSetup) {
+    if(_isSetup) {
       return;
     }
-    isSetup = true;
+    _isSetup = true;
     await onClose();
     await start();
   }
