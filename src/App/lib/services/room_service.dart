@@ -41,6 +41,6 @@ class RoomService{
       return response;
     }
 
-    throw Exception('Failed to get Room');
+    throw Exception('Failed to find room with ID: $uniqueIdentifier');
   }
 }

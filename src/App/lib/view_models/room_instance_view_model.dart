@@ -10,7 +10,7 @@ class RoomInstanceViewModel with ChangeNotifier {
   bool _loading = false;
   String? _roomId;
   List<Match> _matches = [];
-  var _onConnectionJoinHub;
+  OnConnectionJoin? _onConnectionJoinHub;
 
   RoomInstanceViewModel(){
     print('CAAALEED');
@@ -38,7 +38,7 @@ class RoomInstanceViewModel with ChangeNotifier {
   }
 
   Future<void> disposeHubConnection() async {
-    _onConnectionJoinHub.dispose();
+    _onConnectionJoinHub!.dispose();
   }
 
   void onNewConnection(List<Object>? object){

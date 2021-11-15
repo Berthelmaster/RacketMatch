@@ -119,6 +119,16 @@ class MainView extends StatelessWidget{
                               ),
                             ),
                           ),
+                          if (model.errorHasOccurred)
+                            FadeAnimation(
+                              delay: 1,
+                              child: Text(model.errorMessage, style: GoogleFonts.heebo(
+                                color: Colors.red,
+                                letterSpacing: 0.5,
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.bold,
+                              )),
+                            ),
                           SizedBox(
                             height: he * 0.02,
                           ),

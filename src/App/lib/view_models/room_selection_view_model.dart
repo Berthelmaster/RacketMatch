@@ -13,6 +13,8 @@ class RoomSelectionViewModel with ChangeNotifier {
   void switchLoading() => _loading = !_loading;
 
   bool get isLoading => _loading;
+  bool get errorHasOccurred => _errorHasOccurred;
+  String get errorMessage => _errorMessage;
 
   setErrorMessage(String errorMessage){
     _errorMessage = errorMessage;
@@ -27,17 +29,14 @@ class RoomSelectionViewModel with ChangeNotifier {
   }
 
   Future<Room> selectRoomByRoomID(int uniqueIdentifier) async {
-    print(uniqueIdentifier);
+    clearErrorMessage();
 
     try{
-      print('1234');
       var joinRoom = await RoomService.getRoomFromIdentifier(uniqueIdentifier);
-      print(joinRoom.body);
-      print('123');
+      clearErrorMessage();
       return Room.fromJson(jsonDecode(joinRoom.body));
     }
     catch(e) {
-      print(e.toString());
       setErrorMessage(e.toString());
     }
 
