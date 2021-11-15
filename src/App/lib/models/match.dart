@@ -3,6 +3,7 @@ import 'package:racket_match/models/player.dart';
 class Match{
   final int id;
   final List<Player> players;
+  bool isInFocus = false;
 
   Match({
     required this.id,

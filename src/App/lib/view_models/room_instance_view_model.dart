@@ -57,6 +57,8 @@ class RoomInstanceViewModel with ChangeNotifier {
 
   Future<void> onLongPressOnMatch(int index) async{
     print(index);
+    _matches[index].isInFocus = !(_matches[index].isInFocus);
+    notifyListeners();
   }
 
 

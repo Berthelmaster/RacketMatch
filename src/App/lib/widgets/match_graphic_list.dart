@@ -26,7 +26,7 @@ class MatchGraphicList extends StatelessWidget{
         itemBuilder: (context, index) =>
             GestureDetector(
               onLongPress: () => onLongPressCallback(index),
-                child: MatchGraphic(teamOne: matches[index].players.where((x) => x.team == Team.team1).toList(), teamTwo: matches[index].players.where((x) => x.team == Team.team2).toList())),
+                child: MatchGraphic(teamOne: matches[index].players.where((x) => x.team == Team.team1).toList(), teamTwo: matches[index].players.where((x) => x.team == Team.team2).toList(), isInFocus: matches[index].isInFocus)),
       )
 
     );

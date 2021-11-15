@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:racket_match/animation/fadeanimation.dart';
 import 'package:racket_match/models/player.dart';
@@ -7,20 +8,60 @@ class MatchGraphic extends StatelessWidget{
 
   final List<Player> teamOne;
   final List<Player> teamTwo;
+  final bool isInFocus;
+  //final Function() onDelete;
 
-  MatchGraphic({required this.teamOne, required this.teamTwo});
+  MatchGraphic({required this.teamOne, required this.teamTwo, required this.isInFocus});
 
   @override
   Widget build(BuildContext context) {
     var he = MediaQuery.of(context).size.height;
     var we = MediaQuery.of(context).size.width;
+    print('Is in focus?: $isInFocus');
 
     // Add the two lists together, if there are 3 or more players it must be a double match
     var isDoubles = (List.from(teamOne)..addAll(teamTwo)).length >= 3 ? true : false;
 
     return FadeAnimation(
       delay: 0.25,
-      child: Stack(
+      child: isInFocus ?
+        Center(
+          child: Container(
+            height: he*0.20,
+            width: we*0.45,
+            margin: const EdgeInsets.only(right: 10),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(20))
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blue
+                  ),
+                  onPressed: () => {
+                    print('Hello!')
+                  },
+                  child: Text('  Edit match  '),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.red,
+                    onSurface: Colors.red,
+                  ),
+                  onPressed: () => {
+                    print('Danger zone!')
+                  },
+                  child: Text('Delete match'),
+                )
+              ],
+            ),
+          ),
+        )
+          : Stack(
         children: <Widget>
         [
           Image(

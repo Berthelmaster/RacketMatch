@@ -29,6 +29,7 @@ class RoomInstance extends StatelessWidget{
     Player player4 = Player(id: 4, name: 'PLayer_4', team: Team.team2);
 
     Match match1 = Match(id: 1, players: [player1, player2, player3, player4]);
+    Match match2 = Match(id: 2, players: [player1, player3]);
     ValueNotifier<bool> isDialOpen = ValueNotifier(false);
     ValueNotifier<bool> isAtBotom = ValueNotifier(false);
 
@@ -59,6 +60,7 @@ class RoomInstance extends StatelessWidget{
                         onTap: (){
                           print('Share Tapped');
                           model.updateMatch(match1);
+                          model.updateMatch(match2);
                         }
                     )
                   ],
