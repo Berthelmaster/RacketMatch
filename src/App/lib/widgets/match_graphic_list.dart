@@ -8,8 +8,9 @@ import 'package:racket_match/widgets/match_graphic.dart';
 class MatchGraphicList extends StatelessWidget{
 
   final List<Match> matches;
+  final Function(int index) onLongPressCallback;
 
-  MatchGraphicList({required this.matches});
+  MatchGraphicList({required this.matches, required this.onLongPressCallback});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,9 @@ class MatchGraphicList extends StatelessWidget{
             mainAxisSpacing: 8
         ),
         itemBuilder: (context, index) =>
-            MatchGraphic(teamOne: matches[index].players.where((x) => x.team == Team.team1).toList(), teamTwo: matches[index].players.where((x) => x.team == Team.team2).toList()),
+            GestureDetector(
+              onLongPress: () => onLongPressCallback(index),
+                child: MatchGraphic(teamOne: matches[index].players.where((x) => x.team == Team.team1).toList(), teamTwo: matches[index].players.where((x) => x.team == Team.team2).toList())),
       )
 
     );

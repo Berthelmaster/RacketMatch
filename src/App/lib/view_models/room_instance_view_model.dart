@@ -55,22 +55,12 @@ class RoomInstanceViewModel with ChangeNotifier {
     );
   }
 
+  Future<void> onLongPressOnMatch(int index) async{
+    print(index);
+  }
+
 
   void switchLoading() => _loading = !_loading;
-
-
-  /*
-  Future<String> selectRoomByRoomID(String roomID) async {
-    print(roomID);
-    var request = await RoomService.getRoomFromIdentifier(roomID);
-
-    if(request.statusCode == 200){
-      return request.body;
-    }
-
-    throw Exception("Could not find room");
-  }
-   */
 
   void clearViewModel(){
     _loading = false;

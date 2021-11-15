@@ -80,7 +80,10 @@ class RoomInstance extends StatelessWidget{
                               fontWeight: FontWeight.bold,
                               letterSpacing: 0.5,)),
                       ),
-                      MatchGraphicList(matches: model.matches),
+                      MatchGraphicList(
+                        onLongPressCallback: (index) async => model.onLongPressOnMatch(index),
+                          matches: model.matches
+                      ),
                       /*ElevatedButton(
                         onPressed: (){
                           model.updateMatch(match1);
