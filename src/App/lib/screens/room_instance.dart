@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:racket_match/Widgets/match_graphic.dart';
+import 'package:racket_match/animation/fadeanimation.dart';
 import 'package:racket_match/models/match.dart';
 import 'package:racket_match/models/player.dart';
 import 'package:racket_match/models/room.dart';
@@ -27,6 +29,9 @@ class RoomInstance extends StatelessWidget{
     Player player4 = Player(id: 4, name: 'PLayer_4', team: Team.team2);
 
     Match match1 = Match(id: 1, players: [player1, player2, player3, player4]);
+    ValueNotifier<bool> isDialOpen = ValueNotifier(false);
+    ValueNotifier<bool> isAtBotom = ValueNotifier(false);
+
 
 
     return ViewModelBuilder<RoomInstanceViewModel>.reactive(
@@ -35,6 +40,30 @@ class RoomInstance extends StatelessWidget{
         onDispose: (model) async => await model.disposeHubConnection(),
         builder: (context, model, child) =>
             Scaffold(
+              floatingActionButton: FadeAnimation(
+                delay: 0.25,
+                child: SpeedDial(
+                  animatedIcon: AnimatedIcons.search_ellipsis,
+                  openCloseDial: isDialOpen,
+                  backgroundColor: const Color(0xFF0DF5E4).withOpacity(0.6),
+                  overlayColor: const Color(0xFF0DF5E4).withOpacity(0.1),
+                  overlayOpacity: 0.2,
+                  spacing: 15,
+                  spaceBetweenChildren: 15,
+                  closeManually: false,
+                  children: [
+                    SpeedDialChild(
+                        child: const Icon(Icons.share_rounded),
+                        label: 'Share',
+                        backgroundColor: Colors.blue,
+                        onTap: (){
+                          print('Share Tapped');
+                          model.updateMatch(match1);
+                        }
+                    )
+                  ],
+                ),
+              ),
                 backgroundColor: const Color(0xFF1F1A30),
                 body: Container(
                   margin: const EdgeInsets.only(left: 10.0, right: 10.0),
@@ -52,12 +81,14 @@ class RoomInstance extends StatelessWidget{
                               letterSpacing: 0.5,)),
                       ),
                       MatchGraphicList(matches: model.matches),
-                      ElevatedButton(
+                      /*ElevatedButton(
                         onPressed: (){
                           model.updateMatch(match1);
                         },
                         child: const Text('123'),
                       )
+
+                       */
                     ],
                   ),
                 )

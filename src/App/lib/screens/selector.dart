@@ -136,6 +136,7 @@ class MainView extends StatelessWidget{
                             delay: 1,
                             child: TextButton(
                                 onPressed: () async {
+                                  model.clearErrorMessage();
                                   print(myController.text);
                                   print('ok');
                                   var result = await model.selectRoomByRoomID(int.parse(myController.text));
