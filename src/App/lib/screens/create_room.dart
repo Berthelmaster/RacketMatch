@@ -13,12 +13,12 @@ class CreateRoom extends StatelessWidget{
 
   Color backgroundColor = const Color(0xFF1F1A30);
   Color enabledtxt = Colors.white;
+  final roomNameFieldInput = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     var we = MediaQuery.of(context).size.width;
     var he = MediaQuery.of(context).size.height;
-    var roomNameFieldInput = TextEditingController();
 
     return ViewModelBuilder<CreateRoomViewModel>.reactive(
         viewModelBuilder: () => CreateRoomViewModel(),
