@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:racket_match/screens/edit_match.dart';
 import 'package:racket_match/screens/room_instance.dart';
 import 'package:racket_match/screens/create_room.dart';
 import 'package:racket_match/screens/selector.dart';
@@ -30,7 +31,9 @@ class MyApp extends StatelessWidget {
         // Shows the room and valid courts
         '/room': (context) => RoomInstance(),
         // Create a room
-        '/create': (context) => CreateRoom()
+        '/create': (context) => CreateRoom(),
+        // Edit match on a specific room
+        '/edit': (context) => EditMatch(),
       },
     );
   }

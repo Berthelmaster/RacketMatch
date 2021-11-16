@@ -8,14 +8,11 @@ import 'package:racket_match/models/match.dart';
 class RoomInstanceViewModel with ChangeNotifier {
 
   bool _loading = false;
-  String? _roomId;
   List<Match> _matches = [];
   OnConnectionJoin? _onConnectionJoinHub;
 
   RoomInstanceViewModel(){
-    print('CAAALEED');
     _loading = false;
-    _roomId = null;
     _matches = [];
   }
 
@@ -55,21 +52,27 @@ class RoomInstanceViewModel with ChangeNotifier {
     );
   }
 
-  Future<void> onLongPressOnMatch(int index) async{
-    print(index);
-    _matches[index].isInFocus = !(_matches[index].isInFocus);
-    notifyListeners();
-  }
 
 
   void switchLoading() => _loading = !_loading;
 
-  void clearViewModel(){
-    _loading = false;
-    _roomId = null;
-    _matches = [];
+
+  Future<void> onLongPressOnMatch(int index) async{
+    print(index);
+    for (var match in _matches) {
+      if(match.isInFocus) {
+        if(_matches[index] == match) continue;
+        match.isInFocus = false;
+      }
+    }
+    _matches[index].isInFocus = !(_matches[index].isInFocus);
+    notifyListeners();
   }
 
-
-
+  Future<void> onDeletedMatch(int id) async {
+    var match = _matches.firstWhere((x) => x.id == id);
+    _matches.remove(match);
+    print('_matches length: ${_matches.length}');
+    notifyListeners();
+  }
 }

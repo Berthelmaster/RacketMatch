@@ -9,8 +9,9 @@ class MatchGraphicList extends StatelessWidget{
 
   final List<Match> matches;
   final Function(int index) onLongPressCallback;
+  final Function(int id) onDeleteCallback;
 
-  MatchGraphicList({required this.matches, required this.onLongPressCallback});
+  MatchGraphicList({required this.matches, required this.onLongPressCallback, required this.onDeleteCallback});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,14 @@ class MatchGraphicList extends StatelessWidget{
         itemBuilder: (context, index) =>
             GestureDetector(
               onLongPress: () => onLongPressCallback(index),
-                child: MatchGraphic(teamOne: matches[index].players.where((x) => x.team == Team.team1).toList(), teamTwo: matches[index].players.where((x) => x.team == Team.team2).toList(), isInFocus: matches[index].isInFocus)),
+                child: MatchGraphic(
+                    id: matches[index].id,
+                    teamOne: matches[index].players.where((x) => x.team == Team.team1).toList(),
+                    teamTwo: matches[index].players.where((x) => x.team == Team.team2).toList(),
+                    isInFocus: matches[index].isInFocus,
+                    onDelete: onDeleteCallback
+                )
+            ),
       )
 
     );

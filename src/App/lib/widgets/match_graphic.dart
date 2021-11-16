@@ -9,9 +9,10 @@ class MatchGraphic extends StatelessWidget{
   final List<Player> teamOne;
   final List<Player> teamTwo;
   final bool isInFocus;
-  //final Function() onDelete;
+  final int id;
+  final Function(int id) onDelete;
 
-  MatchGraphic({required this.teamOne, required this.teamTwo, required this.isInFocus});
+  MatchGraphic({required this.id, required this.teamOne, required this.teamTwo, required this.isInFocus, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +23,10 @@ class MatchGraphic extends StatelessWidget{
     // Add the two lists together, if there are 3 or more players it must be a double match
     var isDoubles = (List.from(teamOne)..addAll(teamTwo)).length >= 3 ? true : false;
 
-    return FadeAnimation(
-      delay: 0.25,
-      child: isInFocus ?
-        Center(
+    return isInFocus ?
+      FadeAnimation(
+        delay: 0.25,
+        child: Center(
           child: Container(
             height: he*0.20,
             width: we*0.45,
@@ -43,7 +44,6 @@ class MatchGraphic extends StatelessWidget{
                     primary: Colors.blue
                   ),
                   onPressed: () => {
-                    print('Hello!')
                   },
                   child: Text('  Edit match  '),
                 ),
@@ -53,26 +53,33 @@ class MatchGraphic extends StatelessWidget{
                     onSurface: Colors.red,
                   ),
                   onPressed: () => {
-                    print('Danger zone!')
+                    onDelete(id)
+
                   },
                   child: Text('Delete match'),
                 )
               ],
             ),
           ),
-        )
-          : Stack(
-        children: <Widget>
-        [
-          Image(
+        ),
+      )
+        : Stack(
+      children: <Widget>
+      [
+        FadeAnimation(
+          delay: 0.25,
+          child: Image(
             image: const AssetImage('lib/assets/images/istockphoto-829923188-612x612.jpg'),
             width: we*0.45,
             height: he*0.50,
             fit: BoxFit.fill,
           ),
-            isDoubles == true ?
-            // Player 1
-            Stack(
+        ),
+          isDoubles == true ?
+          // Player 1
+          FadeAnimation(
+            delay: 0.25,
+            child: Stack(
               children: <Widget> [
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -147,10 +154,13 @@ class MatchGraphic extends StatelessWidget{
                   ),
                 ),
               ]
-            )
+            ),
+          )
 
-            :
-            Stack(
+          :
+          FadeAnimation(
+            delay: 0.25,
+            child: Stack(
                 children: <Widget> [
                   Column(
                     children: [
@@ -192,10 +202,10 @@ class MatchGraphic extends StatelessWidget{
                     ),
                   ),
                 ]
-            )
+            ),
+          )
 
-        ],
-      ),
+      ],
     );
   }
 }

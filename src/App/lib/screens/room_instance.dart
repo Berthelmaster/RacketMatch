@@ -31,7 +31,6 @@ class RoomInstance extends StatelessWidget{
     Match match1 = Match(id: 1, players: [player1, player2, player3, player4]);
     Match match2 = Match(id: 2, players: [player1, player3]);
     ValueNotifier<bool> isDialOpen = ValueNotifier(false);
-    ValueNotifier<bool> isAtBotom = ValueNotifier(false);
 
 
 
@@ -83,17 +82,10 @@ class RoomInstance extends StatelessWidget{
                               letterSpacing: 0.5,)),
                       ),
                       MatchGraphicList(
+                        matches: model.matches,
                         onLongPressCallback: (index) async => model.onLongPressOnMatch(index),
-                          matches: model.matches
+                        onDeleteCallback: (id) async => model.onDeletedMatch(id),
                       ),
-                      /*ElevatedButton(
-                        onPressed: (){
-                          model.updateMatch(match1);
-                        },
-                        child: const Text('123'),
-                      )
-
-                       */
                     ],
                   ),
                 )
