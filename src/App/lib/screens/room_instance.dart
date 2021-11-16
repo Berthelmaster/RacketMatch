@@ -83,8 +83,8 @@ class RoomInstance extends StatelessWidget{
                       ),
                       MatchGraphicList(
                         matches: model.matches,
-                        onLongPressCallback: (index) async => model.onLongPressOnMatch(index),
-                        onDeleteCallback: (id) async => model.onDeletedMatch(id),
+                        onLongPressCallback: (index) async => await model.onLongPressOnMatch(index),
+                        onDeleteCallback: (id) async => await model.onDeletedMatch(id),
                       ),
                     ],
                   ),
