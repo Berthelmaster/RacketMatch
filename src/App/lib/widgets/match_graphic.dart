@@ -11,8 +11,9 @@ class MatchGraphic extends StatelessWidget{
   final bool isInFocus;
   final int id;
   final Function(int id) onDelete;
+  final Function(int id) onEdit;
 
-  MatchGraphic({required this.id, required this.teamOne, required this.teamTwo, required this.isInFocus, required this.onDelete});
+  MatchGraphic({required this.id, required this.teamOne, required this.teamTwo, required this.isInFocus, required this.onDelete, required this.onEdit});
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +45,7 @@ class MatchGraphic extends StatelessWidget{
                     primary: Colors.blue
                   ),
                   onPressed: () => {
+                    onEdit(id)
                   },
                   child: Text('  Edit match  '),
                 ),

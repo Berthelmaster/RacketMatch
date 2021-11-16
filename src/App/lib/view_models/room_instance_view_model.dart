@@ -75,4 +75,9 @@ class RoomInstanceViewModel with ChangeNotifier {
     print('_matches length: ${_matches.length}');
     notifyListeners();
   }
+
+  Future<Match> onEditedMatch(int id) async {
+    var match = _matches.firstWhere((element) => element.id == id);
+    return match;
+  }
 }

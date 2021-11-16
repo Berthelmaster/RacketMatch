@@ -7,6 +7,7 @@ import 'package:racket_match/animation/fadeanimation.dart';
 import 'package:racket_match/models/match.dart';
 import 'package:racket_match/models/player.dart';
 import 'package:racket_match/models/room.dart';
+import 'package:racket_match/screens/edit_match.dart';
 import 'package:racket_match/services/hub_clients/on_connection_join.dart';
 import 'package:racket_match/view_models/room_instance_view_model.dart';
 import 'package:racket_match/widgets/match_graphic_list.dart';
@@ -85,6 +86,17 @@ class RoomInstance extends StatelessWidget{
                         matches: model.matches,
                         onLongPressCallback: (index) async => await model.onLongPressOnMatch(index),
                         onDeleteCallback: (id) async => await model.onDeletedMatch(id),
+                        onEditCallback: (id) async {
+                          print('213');
+                          Match result = await model.onEditedMatch(id);
+                          if(result is Match) {
+                            print('abc');
+                            print(result.id);
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                              return EditMatch(match: result);
+                            }));
+                          }
+                        }
                       ),
                     ],
                   ),
