@@ -15,7 +15,10 @@ class EditMatch extends StatelessWidget{
         viewModelBuilder: () => EditMatchViewModel(),
         builder: (context, model, child) =>
           Scaffold(
-            body: Text(match!.id.toString()),
+            backgroundColor: const Color(0xFF1F1A30),
+            body: Center(
+                child: Text(match!.id.toString())
+            ),
           )
     );
   }

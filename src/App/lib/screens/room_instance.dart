@@ -40,69 +40,69 @@ class RoomInstance extends StatelessWidget{
         onModelReady: (model) async => await model.setupHubConnection(room!.uniqueRoomIdentifier.toString()),
         onDispose: (model) async => await model.disposeHubConnection(),
         builder: (context, model, child) =>
-            Scaffold(
-              floatingActionButton: FadeAnimation(
-                delay: 0.25,
-                child: SpeedDial(
-                  animatedIcon: AnimatedIcons.search_ellipsis,
-                  openCloseDial: isDialOpen,
-                  backgroundColor: const Color(0xFF0DF5E4).withOpacity(0.6),
-                  overlayColor: const Color(0xFF0DF5E4).withOpacity(0.1),
-                  overlayOpacity: 0.2,
-                  spacing: 15,
-                  spaceBetweenChildren: 15,
-                  closeManually: false,
-                  children: [
-                    SpeedDialChild(
-                        child: const Icon(Icons.share_rounded),
-                        label: 'Share',
-                        backgroundColor: Colors.blue,
-                        onTap: (){
-                          print('Share Tapped');
-                          model.updateMatch(match1);
-                          model.updateMatch(match2);
-                        }
-                    )
-                  ],
-                ),
-              ),
-                backgroundColor: const Color(0xFF1F1A30),
-                body: Container(
-                  margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+              Scaffold(
+                floatingActionButton: FadeAnimation(
+                  delay: 0.25,
+                  child: SpeedDial(
+                    animatedIcon: AnimatedIcons.search_ellipsis,
+                    openCloseDial: isDialOpen,
+                    backgroundColor: const Color(0xFF0DF5E4).withOpacity(0.6),
+                    overlayColor: const Color(0xFF0DF5E4).withOpacity(0.1),
+                    overlayOpacity: 0.2,
+                    spacing: 15,
+                    spaceBetweenChildren: 15,
+                    closeManually: false,
                     children: [
-                      SizedBox(
-                        height: he * 0.04,
-                      ),
-                      Center(
-                        child: Text('Room ID: ${room!.uniqueRoomIdentifier.toString()}',
-                            style: GoogleFonts.heebo(
-                              color:  const Color(0xFF9746A0).withOpacity(0.9),
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 0.5,)),
-                      ),
-                      MatchGraphicList(
-                        matches: model.matches,
-                        onLongPressCallback: (index) async => await model.onLongPressOnMatch(index),
-                        onDeleteCallback: (id) async => await model.onDeletedMatch(id),
-                        onEditCallback: (id) async {
-                          print('213');
-                          Match result = await model.onEditedMatch(id);
-                          if(result is Match) {
-                            print('abc');
-                            print(result.id);
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context){
-                              return EditMatch(match: result);
-                            }));
+                      SpeedDialChild(
+                          child: const Icon(Icons.share_rounded),
+                          label: 'Share',
+                          backgroundColor: Colors.blue,
+                          onTap: (){
+                            print('Share Tapped');
+                            model.updateMatch(match1);
+                            model.updateMatch(match2);
                           }
-                        }
-                      ),
+                      )
                     ],
                   ),
-                )
+                ),
+                  backgroundColor: const Color(0xFF1F1A30),
+                  body: Container(
+                    margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: he * 0.04,
+                        ),
+                        Center(
+                          child: Text('Room ID: ${room!.uniqueRoomIdentifier.toString()}',
+                              style: GoogleFonts.heebo(
+                                color:  const Color(0xFF9746A0).withOpacity(0.9),
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 0.5,)),
+                        ),
+                        MatchGraphicList(
+                          matches: model.matches,
+                          onLongPressCallback: (index) async => await model.onLongPressOnMatch(index),
+                          onDeleteCallback: (id) async => await model.onDeletedMatch(id),
+                          onEditCallback: (id) async {
+                            print('213');
+                            Match result = await model.onEditedMatch(id);
+                            if(result is Match) {
+                              print('abc');
+                              print(result.id);
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                                return EditMatch(match: result);
+                              }));
+                            }
+                          }
+                        ),
+                      ],
+                    ),
+                  )
 
-            ),
+              ),
     );
   }
 
