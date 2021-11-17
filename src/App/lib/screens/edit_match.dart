@@ -11,13 +11,45 @@ class EditMatch extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    var we = MediaQuery.of(context).size.width;
+    var he = MediaQuery.of(context).size.height;
+
     return ViewModelBuilder<EditMatchViewModel>.reactive(
-        viewModelBuilder: () => EditMatchViewModel(),
+        viewModelBuilder: () => EditMatchViewModel(match),
         builder: (context, model, child) =>
           Scaffold(
             backgroundColor: const Color(0xFF1F1A30),
             body: Center(
-                child: Text(match!.id.toString())
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+
+                      children: [
+                        Column(
+                          children: [
+                            Text('123'),
+                            Text('456')
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text('VS')
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text('123'),
+                            Text('456')
+                          ],
+                        )
+                      ],
+                    )
+
+                  ],
+                )
             ),
           )
     );
