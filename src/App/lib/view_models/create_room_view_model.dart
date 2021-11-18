@@ -9,19 +9,14 @@ class CreateRoomViewModel extends ChangeNotifier{
   bool _errorHasOccurred = false;
   String _errorMessage = '';
 
-  void switchLoading(){
-    _loading = !_loading;
-    notifyListeners();
-  }
-
   bool get isLoading => _loading;
-
   bool get errorHasOccurred => _errorHasOccurred;
   String get errorMessage => _errorMessage;
 
 
   setLoading(bool loading) async {
-
+    _loading = loading;
+    notifyListeners();
   }
 
   setErrorMessage(String errorMessage){
@@ -40,13 +35,17 @@ class CreateRoomViewModel extends ChangeNotifier{
     if(_errorHasOccurred){
       clearErrorMessage();
     }
+    await setLoading(true);
 
     try{
       var createRoom = await RoomService.createRoom(roomName);
+      await setLoading(false);
       return Room.fromJson(jsonDecode(createRoom.body));
     }
     catch(e) {
       setErrorMessage(e.toString());
+    }finally{
+      await setLoading(false);
     }
 
     throw Exception('Create Room Exception');

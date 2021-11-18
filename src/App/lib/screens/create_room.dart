@@ -60,7 +60,10 @@ class CreateRoom extends StatelessWidget{
                     ),
                     FadeAnimation(
                       delay: 1,
-                      child: TextButton(
+                      child: model.isLoading ?
+                      const CircularProgressIndicator(
+                      )
+                      : TextButton(
                           onPressed: () {
                             model
                                 .createRoom(roomNameFieldInput.text)

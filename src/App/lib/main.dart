@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:racket_match/screens/add_players.dart';
 import 'package:racket_match/screens/edit_match.dart';
 import 'package:racket_match/screens/room_instance.dart';
 import 'package:racket_match/screens/create_room.dart';
@@ -34,6 +35,8 @@ class MyApp extends StatelessWidget {
         '/create': (context) => CreateRoom(),
         // Edit match on a specific room
         '/edit': (context) => EditMatch(),
+        // Add Players
+        '/add': (context) => AddPlayers()
       },
     );
   }

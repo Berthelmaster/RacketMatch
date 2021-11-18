@@ -9,13 +9,16 @@ namespace Racket.Match.RestApi.AppDbContext
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
             : base(options)
         {
-            
+
         }
 
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Entities.Match> Matches { get; set; }
         public DbSet<Player> Players { get; set; }
         
-        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(DatabaseContext).Assembly);
+        }
     }
 }

@@ -7,6 +7,7 @@ namespace Racket.Match.RestApi.Entities
         public int Id { get; set; }
         public string RoomName { get; set; }
         public int UniqueRoomIdentifier { get; set; }
-        public List<Match> Matches { get; set; }
+        public ICollection<Match> Matches { get; set; }
+        public ICollection<Player> Players { get; set; }
     }
 }
