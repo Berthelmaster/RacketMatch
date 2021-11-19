@@ -1,54 +1,57 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:racket_match/animation/fadeanimation.dart';
 
 class PlayerWithCtaTextField extends StatelessWidget {
-  final String text;
+  final String name;
   final int id;
-  final Function(int id) OnDeletePlayerCallback;
+  final Function(int id) onDeletePlayerCallback;
 
   Color colorWhite = Colors.white;
 
-  PlayerWithCtaTextField(this.text,this.id, this.OnDeletePlayerCallback);
+  PlayerWithCtaTextField({ required this.name, required this.id,required this.onDeletePlayerCallback});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      //color: Colors.red,
+      color: Colors.red,
       padding: const EdgeInsets.symmetric(
-        horizontal: 14.0,
-        vertical: 8.0,
+        vertical: 2,
       ),
-      child: Row(
-        children: [
-          Container(
-            width: 22.0,
-            margin: const EdgeInsets.only(
-              right: 12.0,
-            ),
-            child: IconButton(
-              splashRadius: 1,
-              icon: const Icon(
-                Icons.cancel,
-                color: Colors.red,
-                size: 18,
+      child: FadeAnimation(
+        delay: 0.1,
+        child: Row(
+          children: [
+            Container(
+              width: 22.0,
+              margin: const EdgeInsets.only(
+                right: 12.0,
               ),
-              onPressed: () => {
-                OnDeletePlayerCallback(id)
-              },
-              tooltip: 'Removes player',
-            )
-          ),
-          Flexible(
-            child: Text(
-              text,
-              style: TextStyle(
-                color: colorWhite,
-                fontSize: 16.0,
-                fontWeight: FontWeight.bold,
+              child: IconButton(
+                splashRadius: 1,
+                icon: const Icon(
+                  Icons.cancel,
+                  color: Colors.red,
+                  size: 18,
+                ),
+                onPressed: () => {
+                  onDeletePlayerCallback(id)
+                },
+                tooltip: 'Removes player',
+              )
+            ),
+            Flexible(
+              child: Text(
+                name,
+                style: TextStyle(
+                  color: colorWhite,
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

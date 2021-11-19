@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:racket_match/animation/fadeanimation.dart';
+import 'package:racket_match/models/player.dart';
 import 'package:racket_match/view_models/add_players_view_model.dart';
 import 'package:racket_match/widgets/player_with_cta_textfield.dart';
 import 'package:stacked/stacked.dart';
@@ -10,11 +11,17 @@ class AddPlayers extends StatelessWidget {
 
   final _addPlayerInputController = TextEditingController();
   Color colorWhite = Colors.white;
+  var player = Player(id: 1, name: 'Thomas Berthelsen', team: 1);
+  var player1 = Player(id: 1, name: 'Henry', team: 2);
+  var player2 = Player(id: 1, name: 'Jones', team: 3);
+
+
 
   @override
   Widget build(BuildContext context) {
     var we = MediaQuery.of(context).size.width;
     var he = MediaQuery.of(context).size.height;
+
 
     // TODO: implement build
     return ViewModelBuilder<AddPlayersViewModel>.reactive(
@@ -26,7 +33,7 @@ class AddPlayers extends StatelessWidget {
                 delay: 0.5,
                 child: Center(
                   child: Container(
-                    width: we * 0.9,
+                    width: we * 0.95,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,7 +57,21 @@ class AddPlayers extends StatelessWidget {
                             fontWeight:FontWeight.bold,
                           ),
                         ),
-                        PlayerWithCtaTextField('Thomas Berthelsen', 1, model.onDelete)
+                      Expanded(
+                          child: ListView.builder(
+                            itemCount: model.players.length,
+                            itemBuilder: (context, index) =>
+                                PlayerWithCtaTextField(
+                                  name: model.players[index].name,
+                                  id: model.players[index].id,
+                                  onDeletePlayerCallback: model.onDelete,
+                                ),
+                          )
+
+                      ),
+                        TextButton(onPressed: () => {
+                          model.addPlayer(player)
+                        }, child: Text('Add'))
                       ],
                     ),
                   ),
