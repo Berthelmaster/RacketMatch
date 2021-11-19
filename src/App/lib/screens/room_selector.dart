@@ -16,8 +16,8 @@ enum Buttons{
 }
 
 // Join a room
-class MainView extends StatelessWidget{
-  MainView({Key? key}) : super(key: key);
+class RoomSelector extends StatelessWidget{
+  RoomSelector({Key? key}) : super(key: key);
 
   Color enabled = const Color(0xFF827F8A);
 

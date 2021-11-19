@@ -7,6 +7,7 @@ import 'package:racket_match/animation/fadeanimation.dart';
 import 'package:racket_match/models/match.dart';
 import 'package:racket_match/models/player.dart';
 import 'package:racket_match/models/room.dart';
+import 'package:racket_match/screens/add_players.dart';
 import 'package:racket_match/screens/edit_match.dart';
 import 'package:racket_match/services/hub_clients/on_connection_join.dart';
 import 'package:racket_match/view_models/room_instance_view_model.dart';
@@ -62,6 +63,19 @@ class RoomInstance extends StatelessWidget{
                             model.updateMatch(match1);
                             model.updateMatch(match2);
                           }
+                      ),
+                      SpeedDialChild(
+                          child: const Icon(Icons.add),
+                          label: 'Setup players',
+                          backgroundColor: Colors.blue,
+                          onTap: (){
+                            print('Setup players Tapped');
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                              return AddPlayers();
+                            }
+                            ));
+                          }
+
                       )
                     ],
                   ),
