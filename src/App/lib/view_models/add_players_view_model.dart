@@ -1,9 +1,19 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:racket_match/models/player.dart';
+import 'package:racket_match/services/player_service.dart';
 
 class AddPlayersViewModel extends ChangeNotifier{
   bool _loading = false;
   final List<Player> _players = <Player>[];
+  late int _roomId;
+
+  AddPlayersViewModel(int roomId){
+    _roomId = roomId;
+  }
 
   bool get isLoading => _loading;
   List<Player> get players => _players;
@@ -12,16 +22,44 @@ class AddPlayersViewModel extends ChangeNotifier{
     _loading = loading;
   }
 
-  Future<void> addPlayer(Player player) async{
-    _players.add(player);
-    notifyListeners();
+  void showToast(String message){
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.blueAccent,
+        textColor: Colors.white,
+        fontSize: 10.0
+    );
+  }
+
+  Future<void> addPlayer(String name) async{
+    setLoading(true);
+    // Create player from api
+    Player player = Player.dto(0,null,name: name);
+
+    try
+    {
+      var response = await PlayerService.createPlayer(_roomId, player);
+      var jsonPlayer = Player.fromJson(jsonDecode(response.body));
+      print(555);
+      print(jsonPlayer);
+      _players.add(jsonPlayer);
+      notifyListeners();
+    }
+    catch (e){
+      showToast(e.toString());
+    }
+
+    setLoading(false);
   }
 
   Future<void> onDelete(int id) async{
     setLoading(true);
-
-    print(id);
-
+    var selected = _players.firstWhere((element) => element.id == id);
+    _players.remove(selected);
+    notifyListeners();
     setLoading(false);
   }
 }

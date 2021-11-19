@@ -14,7 +14,7 @@ class PlayerWithCtaTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.red,
+      //color: Colors.red,
       padding: const EdgeInsets.symmetric(
         vertical: 2,
       ),
@@ -25,14 +25,14 @@ class PlayerWithCtaTextField extends StatelessWidget {
             Container(
               width: 22.0,
               margin: const EdgeInsets.only(
-                right: 12.0,
+                right: 14.0,
               ),
               child: IconButton(
                 splashRadius: 1,
                 icon: const Icon(
                   Icons.cancel,
                   color: Colors.red,
-                  size: 18,
+                  size: 24,
                 ),
                 onPressed: () => {
                   onDeletePlayerCallback(id)
@@ -45,8 +45,8 @@ class PlayerWithCtaTextField extends StatelessWidget {
                 name,
                 style: TextStyle(
                   color: colorWhite,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),

@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'player.g.dart';
+
+@JsonSerializable()
 class Player{
   final int id;
   final String name;
@@ -6,7 +11,12 @@ class Player{
   Player({
     required this.id,
     required this.name,
-    required this.team,
+    this.team,
+  });
+
+  // To send to server
+  Player.dto(this.id, this.team, {
+    required this.name
   });
 
   factory Player.fromJson(Map<String, dynamic> json){
@@ -16,6 +26,8 @@ class Player{
       team: json['team'],
     );
   }
+
+  Map<String, dynamic> toJson() => _$PlayerToJson(this);
 
 }
 

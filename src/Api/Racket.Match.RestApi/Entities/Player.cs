@@ -6,7 +6,7 @@ namespace Racket.Match.RestApi.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public Team Team { get; set; }
+        public Team? Team { get; set; }
         
         public ICollection<Match> Matches { get; set; }
         public Room Room { get; set; }

@@ -71,7 +71,7 @@ class RoomInstance extends StatelessWidget{
                           onTap: (){
                             print('Setup players Tapped');
                               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                              return AddPlayers();
+                              return AddPlayers(roomId: room!.id);
                             }
                             ));
                           }

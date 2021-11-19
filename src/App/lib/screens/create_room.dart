@@ -69,9 +69,6 @@ class CreateRoom extends StatelessWidget{
                                 .createRoom(roomNameFieldInput.text)
                                 .then((object) => {
                               if (object is Room){
-                                print(object.id),
-                                print(object.roomName),
-                                print(object.uniqueRoomIdentifier),
                                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context){
                                   return RoomInstance(room: object);
                                 }))

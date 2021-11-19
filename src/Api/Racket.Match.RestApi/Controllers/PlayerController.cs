@@ -22,25 +22,28 @@ namespace Racket.Match.RestApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePlayers([FromQuery] int roomId, [FromBody] List<Player> players)
+        public async Task<IActionResult> CreatePlayers([FromQuery] int roomId, [FromBody] Player player)
         {
             var roomExist = await _context.Rooms.FindAsync(roomId);
             if (roomExist == null)
                 return BadRequest();
-            
-            var playerCollection = players
-                .Select(player => new Player {Name = player.Name, RoomId = roomId})
-                .ToList();
 
-            if (playerCollection.Count == 0)
-                return BadRequest();
 
-            await _context.Players.AddRangeAsync(playerCollection);
+            var createdPlayer = new Player()
+            {
+                Name = player.Name,
+                RoomId = roomId,
+                Team = null
+            };
+                
+            await _context.Players.AddAsync(createdPlayer);
             var nChanges = await _context.SaveChangesAsync();
             
             if (nChanges == 0) return BadRequest();
+
+            var newPlayer = await _context.Players.Where(x => x.Name == player.Name).FirstOrDefaultAsync();
             
-            return Ok();
+            return Ok(newPlayer);
         }
 
         [HttpGet]
