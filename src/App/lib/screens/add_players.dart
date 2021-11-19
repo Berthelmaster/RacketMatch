@@ -32,7 +32,7 @@ class AddPlayers extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          height: he*0.05,
+                          height: he*0.08,
                         ),
                         TextField(
                           controller: _addPlayerInputController,
@@ -50,7 +50,7 @@ class AddPlayers extends StatelessWidget {
                             fontWeight:FontWeight.bold,
                           ),
                         ),
-                        PlayerWithCtaTextField('Thomas Berthelsen', 1, model.OnDelete)
+                        PlayerWithCtaTextField('Thomas Berthelsen', 1, model.onDelete)
                       ],
                     ),
                   ),

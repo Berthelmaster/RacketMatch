@@ -1,13 +1,9 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:racket_match/screens/add_players.dart';
 import 'package:racket_match/screens/edit_match.dart';
 import 'package:racket_match/screens/room_instance.dart';
 import 'package:racket_match/screens/create_room.dart';
 import 'package:racket_match/screens/room_selector.dart';
-import 'package:racket_match/view_models/create_room_view_model.dart';
-import 'package:racket_match/view_models/room_instance_view_model.dart';
-import 'package:racket_match/view_models/room_selection_view_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
