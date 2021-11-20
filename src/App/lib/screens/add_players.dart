@@ -14,8 +14,7 @@ class AddPlayers extends StatelessWidget {
   final _addPlayerInputController = TextEditingController();
   Color colorWhite = Colors.white;
   var player = Player(id: 1, name: 'Thomas Berthelsen', team: 1);
-
-
+  FocusNode focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +22,10 @@ class AddPlayers extends StatelessWidget {
     var he = MediaQuery.of(context).size.height;
 
 
-    // TODO: implement build
+      // TODO: implement build
     return ViewModelBuilder<AddPlayersViewModel>.reactive(
         viewModelBuilder: () => AddPlayersViewModel(roomId!),
+        onModelReady: (model) async => await model.fetchPlayers(),
         builder: (context, model, child) =>
             Scaffold(
               backgroundColor: const Color(0xFF1F1A30),
@@ -42,40 +42,55 @@ class AddPlayers extends StatelessWidget {
                           height: he*0.08,
                         ),
                         TextField(
+                          showCursor: false,
                           controller: _addPlayerInputController,
+                          textAlign: TextAlign.center,
+                          focusNode: focusNode,
                           decoration: InputDecoration(
                             enabledBorder: InputBorder.none,
                             border:InputBorder.none,
-                            prefixIcon: const Icon(Icons.add_box,color: Colors.white),
-                            hintStyle: TextStyle(
-                                color:  colorWhite
-                            ),
-                            hintText: 'Add player',
+                            floatingLabelBehavior: FloatingLabelBehavior.auto,
+                            label: Text("Add player",style: GoogleFonts.heebo(
+                              color: colorWhite,
+                              letterSpacing: 0.5,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                            )),
+                            prefixIcon: const Icon(Icons.add_box,color: Colors.white, size: 25),
                           ),
                           style:  TextStyle(
                             color:  colorWhite,
                             fontWeight:FontWeight.bold,
+                            fontSize: 20,
+                            letterSpacing: 1,
+                            height: 2
                           ),
                         ),
                         FadeAnimation(
                           delay: 1,
                           child: model.isLoading ?
-                          const CircularProgressIndicator(
+                          const Center(
+                            child: CircularProgressIndicator(
+                            ),
                           )
                               : Center(
                                 child: TextButton(
-                                onPressed: () {
-                                  model.addPlayer(_addPlayerInputController.text);
+                                onPressed: () async {
+                                  var isSuccess = await model.addPlayer(_addPlayerInputController.text);
+                                  if(isSuccess){
+                                    focusNode.unfocus();
+                                    _addPlayerInputController.text = '';
+                                  }
                                 },
                                 child: Text("Create player",style: GoogleFonts.heebo(
                                   color: Colors.black,
                                   letterSpacing: 0.5,
-                                  fontSize: 20.0,
+                                  fontSize: 15.0,
                                   fontWeight: FontWeight.bold,
                                 ),),
                                 style:  TextButton.styleFrom(
                                     backgroundColor: const Color(0xFF0DF5E4),
-                                    padding: const EdgeInsets.symmetric(vertical: 15.0,horizontal: 80),
+                                    padding: const EdgeInsets.symmetric(vertical: 5.0,horizontal: 80),
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(30.0)
                                     )
@@ -87,12 +102,24 @@ class AddPlayers extends StatelessWidget {
                           height: he*0.04,
                         ),
                         Center(
-                          child: Text("List of players",style: GoogleFonts.heebo(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 25,
-                              letterSpacing: 2
-                          ),
+                          child: Row(
+                            children: [
+                              Text("List of players",style: GoogleFonts.heebo(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 25,
+                                  letterSpacing: 2
+                                ),
+                              ),
+                              Center(
+                                child: Text("Total: ${model.players.length}",style: GoogleFonts.heebo(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    letterSpacing: 2
+                                ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       Expanded(
@@ -101,7 +128,6 @@ class AddPlayers extends StatelessWidget {
                             context: context,
                             removeTop: true,
                             child: ListView.builder(
-                              reverse: true,
                               itemCount: model.players.length,
                               itemBuilder: (context, index) =>
                                   PlayerWithCtaTextField(

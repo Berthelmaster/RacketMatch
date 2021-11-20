@@ -6,8 +6,6 @@ class RoomService{
   static Future<http.Response> createRoom(String roomName) async {
     var url = Uri.parse("$httpBaseEndpoint/room?roomName=$roomName");
 
-    print(url);
-
     var response = await http.post(url, headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     })

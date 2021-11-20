@@ -20,6 +20,7 @@ class AddPlayersViewModel extends ChangeNotifier{
 
   void setLoading(bool loading){
     _loading = loading;
+    notifyListeners();
   }
 
   void showToast(String message){
@@ -34,7 +35,7 @@ class AddPlayersViewModel extends ChangeNotifier{
     );
   }
 
-  Future<void> addPlayer(String name) async{
+  Future<bool> addPlayer(String name) async{
     setLoading(true);
     // Create player from api
     Player player = Player.dto(0,null,name: name);
@@ -43,15 +44,35 @@ class AddPlayersViewModel extends ChangeNotifier{
     {
       var response = await PlayerService.createPlayer(_roomId, player);
       var jsonPlayer = Player.fromJson(jsonDecode(response.body));
-      print(555);
-      print(jsonPlayer);
-      _players.add(jsonPlayer);
+      _players.insert(0, jsonPlayer);
       notifyListeners();
+      setLoading(false);
+      return true;
     }
     catch (e){
       showToast(e.toString());
     }
 
+    notifyListeners();
+    setLoading(false);
+    return false;
+  }
+
+  Future<void> fetchPlayers() async {
+    setLoading(true);
+
+    try{
+      var response = await PlayerService.fetchPlayers(_roomId);
+      Iterable decoded = json.decode(response.body);
+      List<Player> jsonPlayer = List<Player>.from(decoded.map((model) => Player.fromJson(model)));
+      var reversed = jsonPlayer.reversed;
+      _players.addAll(reversed);
+    }
+    catch(e){
+      showToast(e.toString());
+    }
+
+    notifyListeners();
     setLoading(false);
   }
 
