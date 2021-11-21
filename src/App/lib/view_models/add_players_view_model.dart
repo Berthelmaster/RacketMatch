@@ -97,4 +97,8 @@ class AddPlayersViewModel extends ChangeNotifier{
     _players.insert(0, jsonPlayer);
     notifyListeners();
   }
+
+  void unregisterEvents(){
+    _onPlayerAddedHub.unregisterEvents();
+  }
 }

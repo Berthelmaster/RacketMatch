@@ -23,4 +23,10 @@ class OnConnectionJoin extends BaseHubConnection {
   void memberChanged(List<Object>? object) async{
     await _onMemberChangedCallback!(object);
   }
+
+@override
+  Future<void> unregisterEvents() {
+    // TODO: implement unregisterEvents
+    throw UnimplementedError();
+  }
 }

@@ -13,8 +13,7 @@ class OnPlayerAdded extends BaseHubConnection{
   @override
   Future<OnPlayerAdded> initialize() async{
     await super.initialize();
-    print('here?');
-    print(BaseHubConnection.hubConnection);
+
     BaseHubConnection.hubConnection!.on("PlayerAdded", (arguments) async => await playerAdded(arguments));
 
     return this;
@@ -27,5 +26,10 @@ class OnPlayerAdded extends BaseHubConnection{
   Future<void> invokePlayerAdded(int roomId, Player player) async{
     var obj = [_groupName, roomId, player];
     BaseHubConnection.hubConnection!.invoke("AddPlayersToMatch", args: obj);
+  }
+
+  @override
+  void unregisterEvents() {
+    BaseHubConnection.hubConnection!.off("PlayerAdded");
   }
 }

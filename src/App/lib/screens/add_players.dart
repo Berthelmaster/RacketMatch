@@ -30,6 +30,7 @@ class AddPlayers extends StatelessWidget {
           await model.setupHubConnection(uniqueRoomIdentifier.toString()),
           await model.fetchPlayers(),
         },
+        onDispose: (model) => model.unregisterEvents(),
         builder: (context, model, child) =>
             Scaffold(
               backgroundColor: const Color(0xFF1F1A30),
@@ -71,7 +72,7 @@ class AddPlayers extends StatelessWidget {
                           ),
                         ),
                         FadeAnimation(
-                          delay: 1,
+                          delay: 0.5,
                           child: model.isLoading ?
                           const Center(
                             child: CircularProgressIndicator(

@@ -42,4 +42,6 @@ abstract class BaseHubConnection{
     await onClose();
     await start();
   }
+
+  void unregisterEvents();
 }
