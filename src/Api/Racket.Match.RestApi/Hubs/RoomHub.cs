@@ -4,11 +4,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Racket.Match.RestApi.Dtos;
 using Racket.Match.RestApi.Entities;
+using Racket.Match.RestApi.Interfaces;
 
 namespace Racket.Match.RestApi.Hubs
 {
     public class RoomHub : Hub
     {
+        private readonly IDatabaseContext _context;
+
+        public RoomHub(IDatabaseContext context)
+        {
+            _context = context;
+        }
+        
         public async Task AddToGroup(string groupName)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
@@ -23,15 +31,9 @@ namespace Racket.Match.RestApi.Hubs
             await Clients.Group(groupName).SendAsync("MemberChanged", $"{Context.ConnectionId} has left the room");
         }
 
-        public async Task AddPlayersToMatch(string groupName, List<Player> players)
+        public async Task AddPlayersToMatch(string groupName, Player player)
         {
-            // Find match
-            
-            // Update Match
-            
-            // Send updated Match to Room
-            
-            await Clients.Group(groupName).SendAsync("MatchUpdate", players);
+            await Clients.Group(groupName).SendAsync("PlayerAdded", player);
         }
 
         public async Task MatchChangeInProgress(string groupName, int matchId, bool inProgress)

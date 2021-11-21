@@ -6,7 +6,7 @@ part 'player.g.dart';
 class Player{
   final int id;
   final String name;
-  final team;
+  final Team? team;
 
   Player({
     required this.id,

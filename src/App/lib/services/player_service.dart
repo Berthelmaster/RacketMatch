@@ -6,8 +6,8 @@ import 'package:racket_match/models/player.dart';
 
 class PlayerService{
 
-  static Future<http.Response> createPlayer(int roomId, Player player) async{
-    var url = Uri.parse("$httpBaseEndpoint/player?roomId=$roomId");
+  static Future<http.Response> createPlayer(int roomId, String groupName, Player player) async{
+    var url = Uri.parse("$httpBaseEndpoint/player?roomId=$roomId&groupName=$groupName");
 
     var response = await http.post(url, body: json.encode(player.toJson()), headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',

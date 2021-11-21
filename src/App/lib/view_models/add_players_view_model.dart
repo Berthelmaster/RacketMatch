@@ -4,12 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:racket_match/models/player.dart';
+import 'package:racket_match/services/hub_clients/on_player_added.dart';
 import 'package:racket_match/services/player_service.dart';
 
 class AddPlayersViewModel extends ChangeNotifier{
   bool _loading = false;
   final List<Player> _players = <Player>[];
   late int _roomId;
+  late OnPlayerAdded _onPlayerAddedHub;
 
   AddPlayersViewModel(int roomId){
     _roomId = roomId;
@@ -20,6 +22,11 @@ class AddPlayersViewModel extends ChangeNotifier{
 
   void setLoading(bool loading){
     _loading = loading;
+    notifyListeners();
+  }
+
+  Future<void> setupHubConnection(String roomId) async {
+    _onPlayerAddedHub = await OnPlayerAdded(roomId, onAddedPlayer).initialize();
     notifyListeners();
   }
 
@@ -35,16 +42,17 @@ class AddPlayersViewModel extends ChangeNotifier{
     );
   }
 
-  Future<bool> addPlayer(String name) async{
+  Future<bool> addPlayer(String name, String uniqueIdentifier) async{
     setLoading(true);
+    print('123 $uniqueIdentifier');
     // Create player from api
     Player player = Player.dto(0,null,name: name);
 
     try
     {
-      var response = await PlayerService.createPlayer(_roomId, player);
-      var jsonPlayer = Player.fromJson(jsonDecode(response.body));
-      _players.insert(0, jsonPlayer);
+      await PlayerService.createPlayer(_roomId,uniqueIdentifier, player);
+      //var jsonPlayer = Player.fromJson(jsonDecode(response.body));
+      //_players.insert(0, jsonPlayer);
       notifyListeners();
       setLoading(false);
       return true;
@@ -82,5 +90,11 @@ class AddPlayersViewModel extends ChangeNotifier{
     _players.remove(selected);
     notifyListeners();
     setLoading(false);
+  }
+
+  Future<void> onAddedPlayer(List<Object>? object) async{
+    var jsonPlayer = Player.fromJson(jsonDecode(object![0].toString()));
+    _players.insert(0, jsonPlayer);
+    notifyListeners();
   }
 }

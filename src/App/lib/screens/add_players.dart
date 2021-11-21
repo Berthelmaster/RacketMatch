@@ -8,12 +8,13 @@ import 'package:racket_match/widgets/player_with_cta_textfield.dart';
 import 'package:stacked/stacked.dart';
 
 class AddPlayers extends StatelessWidget {
-  AddPlayers({Key? key, this.roomId}) : super(key: key);
+  AddPlayers({Key? key, this.roomId, this.uniqueRoomIdentifier}) : super(key: key);
 
   final int? roomId;
+  final int? uniqueRoomIdentifier;
   final _addPlayerInputController = TextEditingController();
   Color colorWhite = Colors.white;
-  var player = Player(id: 1, name: 'Thomas Berthelsen', team: 1);
+  var player = Player(id: 1, name: 'Thomas Berthelsen', team: Team.team1);
   FocusNode focusNode = FocusNode();
 
   @override
@@ -25,7 +26,10 @@ class AddPlayers extends StatelessWidget {
       // TODO: implement build
     return ViewModelBuilder<AddPlayersViewModel>.reactive(
         viewModelBuilder: () => AddPlayersViewModel(roomId!),
-        onModelReady: (model) async => await model.fetchPlayers(),
+        onModelReady: (model) async => {
+          await model.setupHubConnection(uniqueRoomIdentifier.toString()),
+          await model.fetchPlayers(),
+        },
         builder: (context, model, child) =>
             Scaffold(
               backgroundColor: const Color(0xFF1F1A30),
@@ -76,7 +80,7 @@ class AddPlayers extends StatelessWidget {
                               : Center(
                                 child: TextButton(
                                 onPressed: () async {
-                                  var isSuccess = await model.addPlayer(_addPlayerInputController.text);
+                                  var isSuccess = await model.addPlayer(_addPlayerInputController.text, uniqueRoomIdentifier.toString());
                                   if(isSuccess){
                                     focusNode.unfocus();
                                     _addPlayerInputController.text = '';

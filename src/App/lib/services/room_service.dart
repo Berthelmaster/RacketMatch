@@ -15,6 +15,8 @@ class RoomService{
           throw Exception('Failed to communicate with server');
         });
 
+    print(response.body);
+
     if(response.statusCode == 200) {
       return response;
     }
