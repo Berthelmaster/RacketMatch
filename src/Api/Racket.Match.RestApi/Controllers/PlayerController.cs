@@ -31,6 +31,9 @@ namespace Racket.Match.RestApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreatePlayers([FromQuery] int roomId, [FromQuery] string groupName,[FromBody] Player player)
         {
+            if (string.IsNullOrEmpty(player.Name))
+                return BadRequest();
+            
             var roomExist = await _context.Rooms.FindAsync(roomId);
             if (roomExist == null)
                 return BadRequest();
@@ -70,6 +73,32 @@ namespace Racket.Match.RestApi.Controllers
                 .ToListAsync();
             
             return Ok(player);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> DeletePlayerFromRoom([FromQuery] int roomId, [FromQuery] string groupName,
+            [FromQuery] int playerId)
+        {
+            var fetchPlayer = await _context.Players.Where(x => x.RoomId == roomId && x.Id == playerId).FirstOrDefaultAsync();
+            if (fetchPlayer == null)
+                return BadRequest();
+            
+            _context.Players.Remove(fetchPlayer);
+            var nChanges = await _context.SaveChangesAsync();
+
+            if (nChanges == 0)
+                return BadRequest();
+
+            var pam = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                ContractResolver = new CamelCasePropertyNamesContractResolver() 
+            };
+            var jsonConvert = JsonConvert.SerializeObject(fetchPlayer, pam);
+            
+            await _hubContext.Clients.Group(groupName).SendAsync("PlayerRemoved", jsonConvert);
+            
+            return Ok();
         }
         
     }

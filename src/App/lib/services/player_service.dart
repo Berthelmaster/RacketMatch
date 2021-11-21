@@ -45,4 +45,24 @@ class PlayerService{
     throw('Could Not add player');
 
   }
+
+  static Future<http.Response> deletePlayer(int roomId, String groupName, int playerId) async {
+    var url = Uri.parse(
+        "$httpBaseEndpoint/player?roomId=$roomId&groupName=$groupName&playerId=$playerId");
+
+    var response = await http.put(url, headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    })
+        .timeout(
+        const Duration(seconds: 5),
+        onTimeout: () {
+          throw Exception('Failed to communicate with server');
+        });
+
+    if (response.statusCode == 200) {
+      return response;
+    }
+
+    throw('Could Not delete player');
+  }
 }

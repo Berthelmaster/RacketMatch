@@ -26,7 +26,7 @@ class AddPlayersViewModel extends ChangeNotifier{
   }
 
   Future<void> setupHubConnection(String roomId) async {
-    _onPlayerAddedHub = await OnPlayerAdded(roomId, onAddedPlayer).initialize();
+    _onPlayerAddedHub = await OnPlayerAdded(roomId, onAddedPlayer, onDeletedPlayer).initialize();
     notifyListeners();
   }
 
@@ -84,10 +84,18 @@ class AddPlayersViewModel extends ChangeNotifier{
     setLoading(false);
   }
 
-  Future<void> onDelete(int id) async{
+  Future<void> onDelete(int id, String uniqueIdentifier) async{
     setLoading(true);
-    var selected = _players.firstWhere((element) => element.id == id);
-    _players.remove(selected);
+    //var selected = _players.firstWhere((element) => element.id == id);
+    //_players.remove(selected);
+
+    try{
+      var response = await PlayerService.deletePlayer(_roomId, uniqueIdentifier, id);
+    }
+    catch(e){
+      showToast(e.toString());
+    }
+
     notifyListeners();
     setLoading(false);
   }
@@ -95,6 +103,12 @@ class AddPlayersViewModel extends ChangeNotifier{
   Future<void> onAddedPlayer(List<Object>? object) async{
     var jsonPlayer = Player.fromJson(jsonDecode(object![0].toString()));
     _players.insert(0, jsonPlayer);
+    notifyListeners();
+  }
+
+  Future<void> onDeletedPlayer(List<Object>? object) async{
+    var jsonPlayer = Player.fromJson(jsonDecode(object![0].toString()));
+    _players.removeWhere((element) => element.id == jsonPlayer.id);
     notifyListeners();
   }
 

@@ -108,6 +108,7 @@ class AddPlayers extends StatelessWidget {
                         ),
                         Center(
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text("List of players",style: GoogleFonts.heebo(
                                   color: Colors.white,
@@ -116,13 +117,11 @@ class AddPlayers extends StatelessWidget {
                                   letterSpacing: 2
                                 ),
                               ),
-                              Center(
-                                child: Text("Total: ${model.players.length}",style: GoogleFonts.heebo(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    letterSpacing: 2
-                                ),
-                                ),
+                              Text("Total: ${model.players.length}",style: GoogleFonts.heebo(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  letterSpacing: 2
+                              ),
                               ),
                             ],
                           ),
@@ -138,7 +137,9 @@ class AddPlayers extends StatelessWidget {
                                   PlayerWithCtaTextField(
                                     name: model.players[index].name,
                                     id: model.players[index].id,
-                                    onDeletePlayerCallback: model.onDelete,
+                                    onDeletePlayerCallback: (id) async {
+                                      await model.onDelete(id, uniqueRoomIdentifier.toString());
+                                    },
                                   ),
                             ),
                           )
