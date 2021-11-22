@@ -134,11 +134,14 @@ class RoomSelector extends StatelessWidget{
                           ),
                           FadeAnimation(
                             delay: 1,
-                            child: TextButton(
+                            child: model.isLoading ?
+                            const Center(
+                              child: CircularProgressIndicator(
+                              ),
+                            )
+                                : TextButton(
                                 onPressed: () async {
                                   model.clearErrorMessage();
-                                  print(myController.text);
-                                  print('ok');
                                   var result = await model.selectRoomByRoomID(int.parse(myController.text));
                                   if(result is Room){
                                     Navigator.of(context).push(MaterialPageRoute(builder: (context){
@@ -149,7 +152,6 @@ class RoomSelector extends StatelessWidget{
                                 child: Text("Enter",style: GoogleFonts.heebo(
                                   color: Colors.black,
                                   letterSpacing: 0.5,
-
                                   fontSize: 20.0,
                                   fontWeight: FontWeight.bold,
                                 ),),

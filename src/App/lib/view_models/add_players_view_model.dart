@@ -86,8 +86,6 @@ class AddPlayersViewModel extends ChangeNotifier{
 
   Future<void> onDelete(int id, String uniqueIdentifier) async{
     setLoading(true);
-    //var selected = _players.firstWhere((element) => element.id == id);
-    //_players.remove(selected);
 
     try{
       var response = await PlayerService.deletePlayer(_roomId, uniqueIdentifier, id);

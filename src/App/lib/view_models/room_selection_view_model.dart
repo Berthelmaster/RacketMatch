@@ -28,18 +28,26 @@ class RoomSelectionViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  setLoading(bool loading){
+    _loading = loading;
+    notifyListeners();
+  }
+
   Future<Room> selectRoomByRoomID(int uniqueIdentifier) async {
     clearErrorMessage();
+    setLoading(true);
 
     try{
       var joinRoom = await RoomService.getRoomFromIdentifier(uniqueIdentifier);
       clearErrorMessage();
+      setLoading(false);
       return Room.fromJson(jsonDecode(joinRoom.body));
     }
     catch(e) {
       setErrorMessage(e.toString());
     }
 
+    setLoading(false);
     throw Exception("Could not find room");
   }
 
