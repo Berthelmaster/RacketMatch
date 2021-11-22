@@ -73,26 +73,35 @@ class EditMatch extends StatelessWidget{
                             letterSpacing: 2
                           ),
                         ),
-                        TextButton(
-                            onPressed: () {
-                            },
-                            child: Text("Create match",style: GoogleFonts.heebo(
-                              color: Colors.black,
-                              letterSpacing: 0.5,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                            ),),
-                            style:  TextButton.styleFrom(
-                                backgroundColor: const Color(0xFF0DF5E4),
-                                padding: const EdgeInsets.symmetric(vertical: 15.0,horizontal: 80),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0)
-                                )
-                            )
-                        ),
                       ],
-
+                    ),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(vertical: 20),
+                            child:
+                              TextButton(
+                                onPressed: () {
+                                },
+                                child: Text("Create match",style: GoogleFonts.heebo(
+                                  color: Colors.black,
+                                  letterSpacing: 0.5,
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                ),),
+                                style:  TextButton.styleFrom(
+                                    backgroundColor: const Color(0xFF0DF5E4),
+                                    padding: const EdgeInsets.symmetric(vertical: 15.0,horizontal: 80),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(30.0)
+                                    )
+                                )
+                            ),
+                          ),
+                      ),
                     )
+
 
                   ],
                 )
