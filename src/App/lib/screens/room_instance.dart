@@ -79,16 +79,15 @@ class RoomInstance extends StatelessWidget{
                       children: [
                         SpeedDialChild(
                             child: const Icon(Icons.share_rounded),
-                            label: 'Share',
+                            label: 'Test',
                             backgroundColor: Colors.blue,
                             onTap: (){
-                              print('Share Tapped');
                               model.updateMatch(match1);
                               model.updateMatch(match2);
                             }
                         ),
                         SpeedDialChild(
-                            child: const Icon(Icons.add),
+                            child: const Icon(Icons.account_circle),
                             label: 'Setup players',
                             backgroundColor: Colors.blue,
                             onTap: (){
@@ -96,6 +95,18 @@ class RoomInstance extends StatelessWidget{
                                 Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                                   print('uniq ${room!.uniqueRoomIdentifier}');
                                 return AddPlayers(roomId: room!.id, uniqueRoomIdentifier: room!.uniqueRoomIdentifier);
+                              }
+                              ));
+                            }
+
+                        ),
+                        SpeedDialChild(
+                            child: const Icon(Icons.add_circle),
+                            label: 'Create match',
+                            backgroundColor: Colors.blue,
+                            onTap: (){
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                                return EditMatch();
                               }
                               ));
                             }
