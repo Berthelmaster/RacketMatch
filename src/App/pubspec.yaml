@@ -45,6 +45,7 @@ dependencies:
   stacked: ^2.2.7
   flutter_speed_dial: ^4.6.6
   json_annotation: ^4.3.0
+  select_dialog: ^2.0.0
 
 dev_dependencies:
   flutter_test:

@@ -106,7 +106,7 @@ class RoomInstance extends StatelessWidget{
                             backgroundColor: Colors.blue,
                             onTap: (){
                               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                                return EditMatch();
+                                return EditMatch(roomId: room!.id);
                               }
                               ));
                             }
