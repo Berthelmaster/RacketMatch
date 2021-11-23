@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:racket_match/models/match.dart';
+import 'package:racket_match/models/player.dart';
 import 'package:racket_match/view_models/edit_match_view_model.dart';
 import 'package:stacked/stacked.dart';
 
@@ -42,25 +43,56 @@ class EditMatch extends StatelessWidget{
 
                       children: [
 
-                        Column(
-                          children: <Widget>[
-                            Text('123'),
-                            if(model.isChecked)
-                              Text('456')
-                          ],
+                        Expanded(
+                          child: Column(
+                            children: <Widget>[
+                             TextField(
+                              //controller: roomNameFieldInput,
+                              style:  TextStyle(
+                                color:  Colors.white,
+                                fontWeight:FontWeight.bold,
+                              ),
+                               onTap: () => _showMultipleChoiceDialog(context, model),
+                            ),
+                              if(model.isChecked)
+                                TextField(
+                                  //controller: roomNameFieldInput,
+                                  style:  TextStyle(
+                                    color:  Colors.white,
+                                    fontWeight:FontWeight.bold,
+                                  ),
+                                ),
+                            ],
+                          ),
                         ),
                         Column(
                           children: [
                             Text('VS')
                           ],
                         ),
-                        Column(
-                          children: [
-                            Text('123'),
-                            if(model.isChecked)
-                              Text('456')
-                          ],
+                        Expanded(
+                          child: Column(
+                            children: [
+                              TextField(
+                                //controller: roomNameFieldInput,
+                                style:  TextStyle(
+                                  color:  Colors.white,
+                                  fontWeight:FontWeight.bold,
+                                ),
+                              ),
+                              if(model.isChecked)
+                                TextField(
+                                  //controller: roomNameFieldInput,
+                                  style:  TextStyle(
+                                    color:  Colors.white,
+                                    fontWeight:FontWeight.bold,
+                                  ),
+                                ),
+                            ],
+                          ),
                         )
+
+                         
                       ],
                     ),
                     Column(
@@ -109,5 +141,33 @@ class EditMatch extends StatelessWidget{
           )
     );
   }
+  _showMultipleChoiceDialog(BuildContext context, EditMatchViewModel model) => showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Select one country or many countries'),
+          content: SingleChildScrollView(
+            child: Container(
+                width: double.infinity,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: model.players
+                      .map((e) => CheckboxListTile(
+                    title: Text(e.name),
+                    onChanged: (value) {
+                    }, value: null,
+                  ))
+                      .toList(),
+                )),
+          ),
+          actions: [
+            FlatButton(
+              child: Text('Yes'),
+              onPressed: () => Navigator.of(context).pop(),
+            )
+          ],
+        );
+      });
 
 }
+
