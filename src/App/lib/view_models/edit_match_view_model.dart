@@ -20,7 +20,11 @@ class EditMatchViewModel extends ChangeNotifier{
   bool get isChecked => _isChecked;
   String get checkboxTitle => _checkboxTitle;
   List<Player> get players => _players;
-  List<String> get player_names => getPlayersByName();
+
+  EditMatchViewModel(Match? match, int roomId){
+    _match = match;
+    _roomId = roomId;
+  }
 
   void toggleIsChecked(){
     _isChecked = !_isChecked;
@@ -31,11 +35,6 @@ class EditMatchViewModel extends ChangeNotifier{
   void addToTakenPlayerByName(String name, int occupiedSlot){
     var takenPlayer = _players.firstWhere((element) => element.name == name);
     _takenPlayers.add(takenPlayer);
-  }
-
-  EditMatchViewModel(Match? match, int roomId){
-    _match = match;
-    _roomId = roomId;
   }
 
   void setLoading(bool isLoading){
