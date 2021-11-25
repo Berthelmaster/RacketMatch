@@ -6,14 +6,14 @@ import 'package:racket_match/models/player.dart';
 
 class MatchGraphic extends StatelessWidget{
 
-  final List<Player> teamOne;
-  final List<Player> teamTwo;
+  final List<Player?> teamOne;
+  final List<Player?> teamTwo;
   final bool isInFocus;
-  final int id;
-  final Function(int id) onDelete;
-  final Function(int id) onEdit;
+  final int? id;
+  final Function(int id)? onDelete;
+  final Function(int id)? onEdit;
 
-  MatchGraphic({required this.id, required this.teamOne, required this.teamTwo, required this.isInFocus, required this.onDelete, required this.onEdit});
+  MatchGraphic({this.id, required this.teamOne, required this.teamTwo, required this.isInFocus, this.onDelete, this.onEdit});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class MatchGraphic extends StatelessWidget{
     print('Is in focus?: $isInFocus');
 
     // Add the two lists together, if there are 3 or more players it must be a double match
-    var isDoubles = (List.from(teamOne)..addAll(teamTwo)).length >= 3 ? true : false;
+    var isDoubles = teamOne.length > 1 || teamTwo.length > 1 ? true : false;
 
     return isInFocus ?
       FadeAnimation(
@@ -45,7 +45,7 @@ class MatchGraphic extends StatelessWidget{
                     primary: Colors.blue
                   ),
                   onPressed: () => {
-                    onEdit(id)
+                    onEdit!(id!)
                   },
                   child: Text('  Edit match  '),
                 ),
@@ -55,8 +55,7 @@ class MatchGraphic extends StatelessWidget{
                     onSurface: Colors.red,
                   ),
                   onPressed: () => {
-                    onDelete(id)
-
+                    onDelete!(id!)
                   },
                   child: Text('Delete match'),
                 )
@@ -65,131 +64,87 @@ class MatchGraphic extends StatelessWidget{
           ),
         ),
       )
-        : Stack(
+        : FadeAnimation(
+      delay: 0.25,
+          child: Stack(
       children: <Widget>
       [
-        FadeAnimation(
-          delay: 0.25,
-          child: Image(
-            image: const AssetImage('lib/assets/images/istockphoto-829923188-612x612.jpg'),
-            width: we*0.45,
-            height: he*0.45,
-            fit: BoxFit.fill,
-          ),
-        ),
-          isDoubles == true ?
-          // Player 1
           FadeAnimation(
             delay: 0.25,
-            child: Stack(
-              children: <Widget> [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          //color: Color(0x70000000),
-                          alignment: Alignment.center,
-                          width: (we*0.45) / 2,
-                          height: he * 0.225,
-                          child: Text(teamOne[0].name,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        // Player 2
-                        Container(
-                          //color: Color(0x70000000),
-                          alignment: Alignment.center,
-                          width: (we*0.45) / 2,
-                          height: he * 0.225,
-                          //margin: EdgeInsets.only(bottom: 20),
-                          child: Text(teamOne[1].name,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    ),
-                    // Player 3
-                    Row(
-
-                      children: [
-                        Container(
-                          //color: Color(0x70000000),
-                          alignment: Alignment.center,
-                          width: (we*0.45) / 2,
-                          height: he * 0.225,
-                          //margin: EdgeInsets.only(top: he * 0.25),
-                          child: Text(teamTwo[0].name,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        // Player 4
-                        Container(
-                          //color: Color(0x70000000),
-                          alignment: Alignment.center,
-                          width: (we*0.45) / 2,
-                          height: he * 0.225,
-                          //margin: EdgeInsets.only(top: he * 0.25, left: (we*0.45) / 2),
-                          child: Text(teamTwo[1].name,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Container(
-
-                  alignment: Alignment.center,
-                  width: (we*0.45) / 2,
-                  height: he * 0.225,
-                  margin: EdgeInsets.only(top: he * 0.1125, left: (we*0.225) / 2),
-                  child: Text('VS',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.heebo(
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 0.5,
-                        fontSize: 16,
-                      )
-                  ),
-                ),
-              ]
+            child: Image(
+              image: const AssetImage('lib/assets/images/istockphoto-829923188-612x612.jpg'),
+              width: we*0.45,
+              height: he*0.45,
+              fit: BoxFit.fill,
             ),
-          )
-
-          :
-          FadeAnimation(
-            delay: 0.25,
-            child: Stack(
+          ),
+            isDoubles == true ?
+            // Player 1
+            FadeAnimation(
+              delay: 0.25,
+              child: Stack(
                 children: <Widget> [
                   Column(
                     children: [
-                      Container(
-                        //color: Color(0x70000000),
-                        alignment: Alignment.center,
-                        width: (we*0.45) / 2,
-                        height: he * 0.225,
-                        margin: EdgeInsets.only(left: (we*0.225) / 2),
-                        child: Text(teamOne[0].name,
-                          textAlign: TextAlign.center,
-                        ),
+                      Row(
+                        children: [
+                          // Player 1
+                          if(teamOne.isNotEmpty && teamOne[0] != null)
+                            Container(
+                              //color: Color(0x70000000),
+                              alignment: Alignment.center,
+                              width: (we*0.45) / 2,
+                              height: he * 0.225,
+                              child: Text(teamOne[0]!.name,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          // Player 2
+                          if(teamOne.isNotEmpty && teamOne.length > 1 && teamOne[1] != null)
+                            Container(
+                              //color: Color(0x70000000),
+                              alignment: Alignment.center,
+                              width: (we*0.45) / 2,
+                              height: he * 0.225,
+                              //margin: EdgeInsets.only(bottom: 20),
+                              child: Text(teamOne[1]!.name,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                        ],
                       ),
-                      // Player 3
-                      Container(
-                        //color: Color(0x70000000),
-                        alignment: Alignment.center,
-                        width: (we*0.45) / 2,
-                        height: he * 0.225,
-                        margin: EdgeInsets.only(left: (we*0.225) / 2),
-                        child: Text(teamTwo[0].name,
-                          textAlign: TextAlign.center,
-                        ),
+                      Row(
+                        children: [
+                          // Player 3
+                          if(teamTwo.isNotEmpty && teamTwo[0] != null)
+                            Container(
+                              //color: Color(0x70000000),
+                              alignment: Alignment.center,
+                              width: (we*0.45) / 2,
+                              height: he * 0.225,
+                              //margin: EdgeInsets.only(top: he * 0.25),
+                              child: Text(teamTwo[0]!.name,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          // Player 4
+                          if(teamTwo.isNotEmpty && teamTwo.length > 1 && teamTwo[1] != null)
+                            Container(
+                              //color: Color(0x70000000),
+                              alignment: Alignment.center,
+                              width: (we*0.45) / 2,
+                              height: he * 0.225,
+                              //margin: EdgeInsets.only(top: he * 0.25, left: (we*0.45) / 2),
+                              child: Text(teamTwo[1]!.name,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                        ],
                       ),
                     ],
                   ),
                   Container(
+
                     alignment: Alignment.center,
                     width: (we*0.45) / 2,
                     height: he * 0.225,
@@ -204,10 +159,61 @@ class MatchGraphic extends StatelessWidget{
                     ),
                   ),
                 ]
-            ),
-          )
+              ),
+            )
+
+            :
+            FadeAnimation(
+              delay: 0.25,
+              child: Stack(
+                  children: <Widget> [
+                    Column(
+                      children: [
+                        if(teamOne.isNotEmpty)
+                          Container(
+                            //color: Color(0x70000000),
+                            alignment: Alignment.center,
+                            width: (we*0.45) / 2,
+                            height: he * 0.225,
+                            margin: EdgeInsets.only(left: (we*0.225) / 2),
+                            child: Text(teamOne[0]!.name,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        // Player 3
+                        if(teamTwo.isNotEmpty)
+                          Container(
+                            //color: Color(0x70000000),
+                            alignment: Alignment.center,
+                            width: (we*0.45) / 2,
+                            height: he * 0.225,
+                            margin: EdgeInsets.only(left: (we*0.225) / 2),
+                            child: Text(teamTwo[0]!.name,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                      ],
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      width: (we*0.45) / 2,
+                      height: he * 0.225,
+                      margin: EdgeInsets.only(top: he * 0.1125, left: (we*0.225) / 2),
+                      child: Text('VS',
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.heebo(
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 0.5,
+                            fontSize: 16,
+                          )
+                      ),
+                    ),
+                  ]
+              ),
+            )
 
       ],
-    );
+    ),
+        );
   }
 }
