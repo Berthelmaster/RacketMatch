@@ -167,7 +167,6 @@ class MatchGraphic extends StatelessWidget{
                     children: [
                       if(teamOne.isNotEmpty)
                         Container(
-                          color: Color(0x70000000),
                           alignment: Alignment.center,
                           width: (we*0.45) / 2,
                           height: he * 0.225,
