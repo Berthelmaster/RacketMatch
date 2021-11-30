@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:racket_match/Widgets/match_graphic.dart';
 import 'package:racket_match/animation/fadeanimation.dart';
+import 'package:racket_match/constants.dart';
 import 'package:racket_match/models/match.dart';
 import 'package:racket_match/models/player.dart';
 import 'package:racket_match/models/room.dart';
@@ -77,15 +78,16 @@ class RoomInstance extends StatelessWidget{
                       spaceBetweenChildren: 15,
                       closeManually: false,
                       children: [
-                        SpeedDialChild(
-                            child: const Icon(Icons.share_rounded),
-                            label: 'Test',
-                            backgroundColor: Colors.blue,
-                            onTap: (){
-                              model.updateMatch(match1);
-                              model.updateMatch(match2);
-                            }
-                        ),
+                        if(!isReleaseMode)
+                          SpeedDialChild(
+                              child: const Icon(Icons.share_rounded),
+                              label: 'Test',
+                              backgroundColor: Colors.blue,
+                              onTap: (){
+                                model.updateMatch(match1);
+                                model.updateMatch(match2);
+                              }
+                          ),
                         SpeedDialChild(
                             child: const Icon(Icons.account_circle),
                             label: 'Setup players',
