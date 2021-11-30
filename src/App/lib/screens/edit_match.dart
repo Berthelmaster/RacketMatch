@@ -37,8 +37,6 @@ class EditMatch extends StatelessWidget {
                   child: SizedBox(
                 width: we * 0.95,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
                       height: he * 0.08,

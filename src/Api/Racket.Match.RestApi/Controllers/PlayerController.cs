@@ -45,7 +45,13 @@ namespace Racket.Match.RestApi.Controllers
                 RoomId = roomId,
                 Team = null
             };
-                
+
+            var playerExist = await _context.Players
+                .Where(x => x.Name == createdPlayer.Name && x.RoomId == createdPlayer.RoomId).AnyAsync();
+
+            if (playerExist)
+                return BadRequest();
+            
             await _context.Players.AddAsync(createdPlayer);
             var nChanges = await _context.SaveChangesAsync();
             

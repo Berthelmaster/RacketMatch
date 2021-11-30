@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'player.g.dart';
 
 @JsonSerializable()
-class Player{
+class Player {
   final int id;
   final String name;
   final Team? team;
@@ -15,11 +15,9 @@ class Player{
   });
 
   // To send to server
-  Player.dto(this.id, this.team, {
-    required this.name
-  });
+  Player.dto(this.id, this.team, {required this.name});
 
-  factory Player.fromJson(Map<String, dynamic> json){
+  factory Player.fromJson(Map<String, dynamic> json) {
     return Player(
       id: json['id'],
       name: json['name'],
@@ -28,11 +26,6 @@ class Player{
   }
 
   Map<String, dynamic> toJson() => _$PlayerToJson(this);
-
 }
 
-
-enum Team{
-  team1,
-  team2
-}
+enum Team { team1, team2 }
