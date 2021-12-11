@@ -39,7 +39,9 @@ class EditMatch extends StatelessWidget {
                 child: Container(
                   margin: EdgeInsets.only(left: we*0.15, right: 0.15*we, bottom: he*0.02),
                   child: TextButton(
-                      onPressed: () {},
+                      onPressed: () async{
+                        await model.createOrEditMatch();
+                      },
                       child: Text(
                         "Create match",
                         style: GoogleFonts.heebo(

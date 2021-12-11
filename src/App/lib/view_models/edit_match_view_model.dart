@@ -4,6 +4,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:racket_match/models/match.dart';
 import 'package:racket_match/models/player.dart';
+import 'package:racket_match/services/match_service.dart';
 import 'package:racket_match/services/player_service.dart';
 
 class EditMatchViewModel extends ChangeNotifier {
@@ -62,7 +63,9 @@ class EditMatchViewModel extends ChangeNotifier {
       List<Player> jsonPlayer =
           List<Player>.from(decoded.map((model) => Player.fromJson(model)));
       _players.addAll(jsonPlayer);
-    } catch (e) {}
+    } catch (e) {
+
+    }
 
     notifyListeners();
     setLoading(false);
@@ -147,5 +150,27 @@ class EditMatchViewModel extends ChangeNotifier {
     }
 
     notifyListeners();
+  }
+
+  Future<void> createOrEditMatch() async{
+    if(_teamOne.isEmpty || _teamTwo.isEmpty){
+      return;
+    }
+
+    var joinedPlayerList = List<Player?>.from(_teamOne)..addAll(_teamTwo);
+
+    try {
+      var response = await MatchService.createOrEditMatch(_roomId, _roomId.toString(), joinedPlayerList as List<Player>);
+      print(response);
+    } catch (e) {
+
+    }
+
+
+
+
+
+
+
   }
 }
