@@ -31,6 +31,25 @@ namespace Racket.Match.RestApi.Controllers
 
             return Ok();
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteMatch([FromBody] Entities.Match match)
+        {
+            var findMatch = await _context.Matches.FindAsync(match.Id);
+
+            if (findMatch == null)
+                return BadRequest();
+
+            _context.Matches.Remove(findMatch);
+
+            var nChanges = await _context.SaveChangesAsync();
+
+            if (nChanges == 0)
+                return BadRequest();
+
+            return Ok();
+
+        }
         
     }
 }
