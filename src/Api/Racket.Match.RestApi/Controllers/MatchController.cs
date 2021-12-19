@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Racket.Match.RestApi.Dtos;
 using Racket.Match.RestApi.Entities;
 using Racket.Match.RestApi.Hubs;
 using Racket.Match.RestApi.Interfaces;
@@ -22,9 +23,9 @@ namespace Racket.Match.RestApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateOrEditMatch([FromQuery] int roomId, [FromQuery] string groupName, [FromBody] List<Player> players, [FromBody] Entities.Match match = null)
+        public async Task<IActionResult> CreateOrEditMatch([FromQuery] int roomId, [FromQuery] string groupName, [FromBody] ListPlayersAndMatchDto listPlayersAndMatchDto)
         {
-            if (match == null)
+            if (listPlayersAndMatchDto.Match == null)
             {
                 return Ok();
             }
