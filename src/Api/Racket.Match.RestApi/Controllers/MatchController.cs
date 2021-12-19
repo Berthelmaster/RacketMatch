@@ -23,9 +23,9 @@ namespace Racket.Match.RestApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateOrEditMatch([FromQuery] int roomId, [FromQuery] string groupName, [FromBody] ListPlayersAndMatchDto listPlayersAndMatchDto)
+        public async Task<IActionResult> CreateOrEditMatch([FromQuery] int roomId, [FromQuery] string groupName, [FromBody] CreateOrEditMatchDto createOrEditMatchDto)
         {
-            if (listPlayersAndMatchDto.Match == null)
+            if (createOrEditMatchDto.Match == null)
             {
                 return Ok();
             }
