@@ -8,3 +8,5 @@ CI:
 [![ci-app](https://github.com/Berthelmaster/RacketMatch/actions/workflows/ci-app.yml/badge.svg?branch=main)](https://github.com/Berthelmaster/RacketMatch/actions/workflows/ci-app.yml)
 
 Release:
+
+.. Add me when released
