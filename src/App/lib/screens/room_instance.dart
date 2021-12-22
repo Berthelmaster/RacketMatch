@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'package:racket_match/Widgets/match_graphic.dart';
 import 'package:racket_match/animation/fadeanimation.dart';
 import 'package:racket_match/constants.dart';
 import 'package:racket_match/models/match.dart';
@@ -10,7 +8,6 @@ import 'package:racket_match/models/player.dart';
 import 'package:racket_match/models/room.dart';
 import 'package:racket_match/screens/add_players.dart';
 import 'package:racket_match/screens/edit_match.dart';
-import 'package:racket_match/services/hub_clients/on_connection_join.dart';
 import 'package:racket_match/view_models/room_instance_view_model.dart';
 import 'package:racket_match/widgets/match_graphic_list.dart';
 import 'package:stacked/stacked.dart';
