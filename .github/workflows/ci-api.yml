@@ -23,6 +23,8 @@ jobs:
     
     - name: Restore dependencies
       run: dotnet restore
+      working-directory: src/Api
+
     
     - name: Build
       run: dotnet build -c Release --no-restore
