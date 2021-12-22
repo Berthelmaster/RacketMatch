@@ -28,6 +28,8 @@ jobs:
     
     - name: Build
       run: dotnet build -c Release --no-restore
+      working-directory: src/Api
     
     - name: Test
       run: dotnet test -c Release --no-build --verbosity normal --filter "Category!=LongRunning"
+      working-directory: src/Api
